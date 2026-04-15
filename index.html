@@ -159,6 +159,10 @@ button:disabled { opacity: 0.4; cursor: default; }
 			<option value="no" selected>No</option>
 		</select>
 	</div>
+	<div class="form-group">
+		<label>Version Tag</label>
+		<input id="versionTag" value="PC5001" placeholder="PC5001" maxlength="6">
+	</div>
 </div>
 
 <div class="buttons">
@@ -217,6 +221,7 @@ $('startBtn').addEventListener('click', async () => {
 		hide: $('hide').value === 'yes',
 		dance: $('dance').value === 'yes',
 		slide: $('slide').value === 'yes',
+		versionTag: $('versionTag').value.trim() || 'PC5001',
 	};
 
 	if (!config.server) return;
@@ -227,7 +232,7 @@ $('startBtn').addEventListener('click', async () => {
 	$('startBtn').disabled = true;
 	$('stopBtn').disabled = false;
 
-	addLog('*', 'connecting', `Starting ${config.numClients} bot(s) → ${config.server} (room ${config.roomId || 'entry'}, hide=${config.hide}, dance=${config.dance}, slide=${config.slide})`);
+	addLog('*', 'connecting', `Starting ${config.numClients} bot(s) → ${config.server} (room ${config.roomId || 'entry'}, hide=${config.hide}, dance=${config.dance}, slide=${config.slide}, version=${config.versionTag})`);
 
 	await window.loadtest.start(config);
 
