@@ -1,0 +1,17 @@
+{
+    "name": "PalaceV1",
+    "version": "1.0.0",
+    "description": "Palace server load tester",
+    "main": "main.mjs",
+    "type": "module",
+    "scripts": {
+        "start": "electron .",
+        "build": "electron-packager . PalaceV1 --overwrite --ignore=\"(\\.gitignore|.*/test|node_modules/@paulcbetts/cld/deps|\\.ts$|tsconfig)\" --prune --out=release-builds"
+    },
+    "author": "",
+    "license": "",
+    "devDependencies": {
+        "@electron/packager": "^19.1.0",
+        "electron": "^41.2.0"
+    }
+}

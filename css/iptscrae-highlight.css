@@ -1,0 +1,12 @@
+/* Iptscrae syntax highlighting — shared between editor and reference */
+.ipt-comment    { color: #556; font-style: italic; }
+.ipt-string     { color: #6dbf7b; }
+.ipt-number     { color: #c480c4; }
+.ipt-command    { color: #6bbfc8; }
+.ipt-control    { color: #c87070; font-weight: bold; }
+.ipt-event      { color: #c8a84e; font-weight: bold; }
+.ipt-variable   { color: #c0c0c0; }
+.ipt-extvar     { color: #c0c0c0; text-shadow: 0 0 4px rgba(107,191,200,0.7), 0 0 10px rgba(107,191,200,0.5), 0 0 20px rgba(107,191,200,0.3); }
+.ipt-operator   { color: #c88a4e; }
+.ipt-bracket    { color: #7a7ebc; }
+.ipt-bracket-match { background: rgba(120,124,200,0.3); outline: 1px solid rgba(120,124,200,0.5); }

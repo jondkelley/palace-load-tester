@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#444">
+  <!-- Bucket body -->
+  <path d="M4 8 L16 8 L14 18 L6 18 Z"/>
+  <!-- Bucket top rim -->
+  <ellipse cx="10" cy="8" rx="6" ry="2" fill="none" stroke="#444" stroke-width="1.5"/>
+  <!-- Handle -->
+  <path d="M4 6 Q10 -1 16 6" fill="none" stroke="#444" stroke-width="1.8" stroke-linecap="round"/>
+  <!-- Paint drip -->
+  <path d="M14 10 Q18 11 17 15 Q16 17 14 15" fill="#444"/>
+</svg>

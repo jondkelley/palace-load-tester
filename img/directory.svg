@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="none" stroke="#444" stroke-width="2">
+  <!-- Globe circle -->
+  <circle cx="16" cy="16" r="12"/>
+  <!-- Vertical meridian -->
+  <ellipse cx="16" cy="16" rx="5" ry="12"/>
+  <!-- Horizontal parallels -->
+  <path d="M4.5 11h23"/>
+  <path d="M4.5 21h23"/>
+  <!-- Equator -->
+  <line x1="4" y1="16" x2="28" y2="16"/>
+</svg>

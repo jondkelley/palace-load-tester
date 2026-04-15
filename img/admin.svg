@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="#444">
+  <!-- Shield -->
+  <path d="M16 3 L27 8 L27 15 C27 22 22 27 16 29 C10 27 5 22 5 15 L5 8 Z" fill="none" stroke="#444" stroke-width="2.5" stroke-linejoin="round"/>
+  <!-- Star/badge -->
+  <path d="M16 10 L17.5 14 L22 14 L18.5 17 L19.8 21 L16 18.5 L12.2 21 L13.5 17 L10 14 L14.5 14 Z"/>
+</svg>

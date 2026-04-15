@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; style-src 'unsafe-inline'; script-src 'unsafe-inline'">
+<title>PalaceV1 — Load Tester</title>
+<style>
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+	background: #1e1e2e;
+	color: #cdd6f4;
+	font-family: -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif;
+	padding: 24px;
+	display: flex;
+	flex-direction: column;
+	height: 100vh;
+	overflow: hidden;
+}
+h1 {
+	font-size: 18px;
+	font-weight: 600;
+	margin-bottom: 20px;
+	color: #cba6f7;
+}
+.form-grid {
+	display: grid;
+	grid-template-columns: 1fr 1fr;
+	gap: 12px 16px;
+	margin-bottom: 16px;
+}
+.form-group.full { grid-column: 1 / -1; }
+label {
+	display: block;
+	font-size: 12px;
+	color: #a6adc8;
+	margin-bottom: 4px;
+	text-transform: uppercase;
+	letter-spacing: 0.5px;
+}
+input, select {
+	width: 100%;
+	padding: 8px 10px;
+	background: #313244;
+	border: 1px solid #45475a;
+	color: #cdd6f4;
+	border-radius: 6px;
+	font-size: 14px;
+	outline: none;
+	transition: border-color 0.15s;
+}
+input:focus, select:focus { border-color: #cba6f7; }
+input::placeholder { color: #6c7086; }
+select { cursor: pointer; }
+
+.buttons {
+	display: flex;
+	gap: 10px;
+	margin-bottom: 16px;
+}
+button {
+	padding: 10px 28px;
+	border: none;
+	border-radius: 6px;
+	font-size: 14px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: opacity 0.15s;
+}
+button:hover { opacity: 0.85; }
+button:disabled { opacity: 0.4; cursor: default; }
+#startBtn { background: #a6e3a1; color: #1e1e2e; }
+#stopBtn  { background: #f38ba8; color: #1e1e2e; }
+
+.stats {
+	display: flex;
+	gap: 16px;
+	margin-bottom: 12px;
+	font-size: 13px;
+}
+.stat {
+	padding: 6px 12px;
+	border-radius: 6px;
+	background: #313244;
+}
+.stat .n { font-weight: 700; }
+.stat.ok .n { color: #a6e3a1; }
+.stat.err .n { color: #f38ba8; }
+.stat.wait .n { color: #f9e2af; }
+
+#log {
+	flex: 1;
+	background: #181825;
+	border-radius: 6px;
+	padding: 10px 12px;
+	overflow-y: auto;
+	font-family: 'SF Mono', 'Cascadia Code', 'Consolas', monospace;
+	font-size: 12px;
+	line-height: 1.6;
+	min-height: 0;
+}
+.log-line { white-space: pre-wrap; word-break: break-all; }
+.log-line .ts  { color: #6c7086; }
+.log-line .bot { color: #89b4fa; font-weight: 600; }
+.st-connecting  { color: #f9e2af; }
+.st-connected   { color: #f9e2af; }
+.st-handshake   { color: #89dceb; }
+.st-registered  { color: #94e2d5; }
+.st-navigating  { color: #94e2d5; }
+.st-hiding      { color: #cba6f7; }
+.st-ready       { color: #a6e3a1; }
+.st-error       { color: #f38ba8; }
+.st-disconnected { color: #f38ba8; }
+.st-serverdown  { color: #f38ba8; }
+.st-naverror    { color: #fab387; }
+.st-auth        { color: #fab387; }
+.st-dancing     { color: #f5c2e7; }
+.st-sliding     { color: #89dceb; }
+</style>
+</head>
+<body>
+
+<h1>PalaceV1 &mdash; Load Tester</h1>
+
+<div class="form-grid">
+	<div class="form-group full">
+		<label>Server (host:port)</label>
+		<input id="server" value="localhost:9998" placeholder="host:port">
+	</div>
+	<div class="form-group">
+		<label>How many clients?</label>
+		<input id="numClients" type="number" value="10" min="1" max="1000">
+	</div>
+	<div class="form-group">
+		<label>Name prefix</label>
+		<input id="namePrefix" value="Bot" placeholder="Bot">
+	</div>
+	<div class="form-group">
+		<label>Room ID to join</label>
+		<input id="roomId" type="number" value="0" min="0" placeholder="0 = entry room">
+	</div>
+	<div class="form-group">
+		<label>Hide on sign-on?</label>
+		<select id="hide">
+			<option value="yes">Yes</option>
+			<option value="no" selected>No</option>
+		</select>
+	</div>
+	<div class="form-group">
+		<label>Random Dance?</label>
+		<select id="dance">
+			<option value="yes">Yes</option>
+			<option value="no" selected>No</option>
+		</select>
+	</div>
+	<div class="form-group">
+		<label>Random Slide?</label>
+		<select id="slide">
+			<option value="yes">Yes</option>
+			<option value="no" selected>No</option>
+		</select>
+	</div>
+</div>
+
+<div class="buttons">
+	<button id="startBtn">Start</button>
+	<button id="stopBtn" disabled>Stop All</button>
+</div>
+
+<div class="stats">
+	<div class="stat ok">Ready: <span class="n" id="statReady">0</span></div>
+	<div class="stat wait">Connecting: <span class="n" id="statConnecting">0</span></div>
+	<div class="stat err">Failed: <span class="n" id="statError">0</span></div>
+	<div class="stat">Total: <span class="n" id="statTotal">0</span></div>
+</div>
+
+<div id="log"></div>
+
+<script>
+const $ = (id) => document.getElementById(id);
+const log = $('log');
+const MAX_LOG = 2000;
+let logCount = 0;
+let running = false;
+let statsTimer = null;
+
+function addLog(botId, state, msg) {
+	const ts = new Date().toLocaleTimeString();
+	const line = document.createElement('div');
+	line.className = 'log-line';
+	line.innerHTML = `<span class="ts">${ts}</span> <span class="bot">[${botId}]</span> <span class="st-${state}">${msg}</span>`;
+	log.appendChild(line);
+	logCount++;
+	if (logCount > MAX_LOG) {
+		log.removeChild(log.firstChild);
+		logCount--;
+	}
+	log.scrollTop = log.scrollHeight;
+}
+
+function updateStats(stats) {
+	$('statReady').textContent = stats.ready;
+	$('statConnecting').textContent = stats.connecting;
+	$('statError').textContent = stats.error;
+	$('statTotal').textContent = stats.total;
+}
+
+window.loadtest.onBotStatus((data) => {
+	addLog(data.id, data.state, data.msg);
+});
+
+$('startBtn').addEventListener('click', async () => {
+	const config = {
+		server: $('server').value.trim(),
+		numClients: parseInt($('numClients').value) || 1,
+		namePrefix: $('namePrefix').value.trim() || 'Bot',
+		roomId: parseInt($('roomId').value) || 0,
+		hide: $('hide').value === 'yes',
+		dance: $('dance').value === 'yes',
+		slide: $('slide').value === 'yes',
+	};
+
+	if (!config.server) return;
+
+	log.innerHTML = '';
+	logCount = 0;
+	running = true;
+	$('startBtn').disabled = true;
+	$('stopBtn').disabled = false;
+
+	addLog('*', 'connecting', `Starting ${config.numClients} bot(s) → ${config.server} (room ${config.roomId || 'entry'}, hide=${config.hide}, dance=${config.dance}, slide=${config.slide})`);
+
+	await window.loadtest.start(config);
+
+	if (statsTimer) clearInterval(statsTimer);
+	statsTimer = setInterval(async () => {
+		if (!running) return;
+		const stats = await window.loadtest.getStats();
+		updateStats(stats);
+	}, 500);
+});
+
+$('stopBtn').addEventListener('click', async () => {
+	running = false;
+	if (statsTimer) { clearInterval(statsTimer); statsTimer = null; }
+	const result = await window.loadtest.stop();
+	addLog('*', 'disconnected', `Stopped ${result.stopped} bot(s)`);
+	$('startBtn').disabled = false;
+	$('stopBtn').disabled = true;
+	updateStats({ ready: 0, connecting: 0, error: 0, total: 0 });
+});
+</script>
+
+</body>
+</html>

@@ -1,0 +1,18 @@
+export type {
+    PalaceAPI,
+    ContextMenuSetup,
+    ContextMenuItem,
+    PacketHeader,
+    SpotInfo,
+    SpotState,
+    UserInfo,
+    PropSpec,
+    CachedProp,
+    RoomInfo,
+    LooseImage,
+    DrawCommand,
+    DrawPrefs,
+    PrefsData,
+    RegistrationData,
+    ServerEntry,
+} from './interfaces.js';

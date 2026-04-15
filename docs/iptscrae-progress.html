@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PalaceV — Iptscrae Implementation Progress</title>
+<style>
+  :root { --g:#2ea043; --y:#d29922; --r:#8b949e; --bg:#0d1117; --card:#161b22; --bdr:#30363d; --t:#e6edf3; --t2:#8b949e; --bar:#21262d; }
+  *{margin:0;padding:0;box-sizing:border-box}
+  body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;background:var(--bg);color:var(--t);padding:1.5rem 2rem}
+  h1{font-size:1.6rem;margin-bottom:.2rem}
+  .sub{color:var(--t2);font-size:.85rem;margin-bottom:1.2rem} .sub a{color:#58a6ff;text-decoration:none}
+  .top{display:flex;gap:1rem;flex-wrap:wrap;align-items:center;margin-bottom:1.2rem}
+  .stat{background:var(--card);border:1px solid var(--bdr);border-radius:6px;padding:.6rem 1rem;text-align:center;min-width:90px}
+  .stat .l{color:var(--t2);font-size:.65rem;text-transform:uppercase;letter-spacing:.04em}
+  .stat .v{font-size:1.5rem;font-weight:700} .stat .v.g{color:var(--g)} .stat .v.r{color:var(--r)}
+  .bar{background:var(--bar);border-radius:5px;overflow:hidden;height:14px;flex:1;min-width:200px;display:flex}
+  .bar .s{height:100%} .bar .s.g{background:var(--g)}
+  .legend{display:flex;gap:1rem;margin-bottom:1rem;font-size:.8rem}
+  .legend span{display:flex;align-items:center;gap:.3rem}
+  .dot{width:8px;height:8px;border-radius:50%;display:inline-block} .dot.g{background:var(--g)} .dot.r{background:var(--r)}
+  .sec{background:var(--card);border:1px solid var(--bdr);border-radius:6px;margin-bottom:1rem;overflow:hidden}
+  .sec-h{padding:.6rem 1rem;border-bottom:1px solid var(--bdr);display:flex;justify-content:space-between;align-items:center;cursor:pointer;user-select:none}
+  .sec-h h2{font-size:.95rem;display:flex;align-items:center;gap:.4rem}
+  .sec-h .ct{color:var(--t2);font-size:.8rem}
+  .chv{transition:transform .15s;color:var(--t2);font-size:.8rem}
+  .sec.c .sec-b{display:none} .sec.c .chv{transform:rotate(-90deg)}
+  .mini{width:80px;height:5px;background:var(--bar);border-radius:3px;overflow:hidden;display:flex}
+  .mini .s{height:100%} .mini .s.g{background:var(--g)}
+  .grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:0;padding:.4rem .8rem .6rem}
+  .item{display:flex;align-items:center;gap:.35rem;padding:.2rem .3rem;font-size:.8rem;border-radius:3px}
+  .item:hover{background:rgba(255,255,255,.04)}
+  .item code{font-size:.78rem;font-family:'SF Mono',Consolas,monospace}
+  .icon{font-size:.7rem;width:14px;text-align:center;flex-shrink:0}
+  .icon.g{color:var(--g)} .icon.r{color:var(--r)}
+  @media(max-width:600px){body{padding:1rem}.grid{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+
+<h1>PalaceV — Iptscrae Implementation Progress</h1>
+<p class="sub">All classic &amp; extended commands/events · Reference: <a href="https://pchat.org/wiki/index.php?title=Extended_Iptscrae_Scripting" target="_blank">PChat Extended Iptscrae</a></p>
+
+<div class="legend">
+  <span><span class="dot g"></span> Implemented</span>
+  <span><span class="dot r"></span> Not Started</span>
+</div>
+<div class="top" id="top"></div>
+<div id="sections"></div>
+
+<script>
+const D = {
+  "Classic Events": [
+    ["SIGNON",1],["SIGNOFF",1],["ENTER",1],["LEAVE",1],["INCHAT",1],["OUTCHAT",1],["SELECT",1],["ALARM",1]
+  ],
+  "Extended Events": [
+    ["COLORCHANGE",1],["FACECHANGE",1],["FRAMECHANGE",0],["HTTPERROR",1],["HTTPRECEIVED",1],
+    ["HTTPSENDPROGRESS",1],["HTTPRECEIVEPROGRESS",1],["IDLE",1],["KEYDOWN",0],["KEYUP",0],
+    ["LOOSEPROPADDED",1],["LOOSEPROPMOVED",1],["LOOSEPROPDELETED",1],["MOUSEDOWN",1],
+    ["MOUSEDRAG",1],["MOUSEMOVE",1],["MOUSEUP",1],["NAMECHANGE",1],["ROLLOVER",1],["ROLLOUT",1],
+    ["ROOMLOAD",1],["ROOMREADY",1],["SERVERMSG",1],["STATECHANGE",1],["USERENTER",1],
+    ["USERLEAVE",1],["USERMOVE",1],["WEBDOCBEGIN",1],["WEBDOCDONE",1],["WEBSTATUS",1],["WEBTITLE",1]
+  ],
+  "Flow Control": [
+    ["IF",1],["IFELSE",1],["WHILE",1],["FOREACH",1],["EXEC",1],["BREAK",1],["RETURN",1],["EXIT",1]
+  ],
+  "Stack Ops": [
+    ["DUP",1],["POP",1],["SWAP",1],["OVER",1],["PICK",1],["STACKDEPTH",1],["TOPTYPE",1],["VARTYPE",1]
+  ],
+  "Variables & Scope": [
+    ["DEF",1],["GLOBAL",1],["SGLOBAL",1],["ISFUNCTION",1]
+  ],
+  "String": [
+    ["ATOI",1],["ITOA",1],["STRLEN",1],["STRINDEX",1],["SUBSTR",1],["SUBSTRING",1],
+    ["LOWERCASE",1],["UPPERCASE",1],["STRTOATOM",1],["GREPSTR",1],["GREPSUB",1],
+    ["CHARTONUM",1],["NUMTOCHAR",1],["REPLACE",1],["REPLACEALL",1],
+    ["REGEXP",1],["REGEXPREPLACE",1],["ENCODEURL",1],["DECODEURL",1]
+  ],
+  "Math": [
+    ["RANDOM",1],["COSINE",1],["SINE",1],["TANGENT",1],["ABSVALUE",1],["SQRT",1],
+    ["POWER",1],["ROUNDNUM",1],
+    ["BITAND",1],["BITOR",1],["BITXOR",1],["BITSHIFTLEFT",1],["BITSHIFTRIGHT",1]
+  ],
+  "Array & Hash": [
+    ["ARRAY",1],["GET",1],["PUT",1],["LENGTH",1],["NEWHASH",1],["HASHTOJSON",1],["JSONTOHASH",1]
+  ],
+  "Operators": [
+    ["+",1],["-",1],["*",1],["/",1],["%",1],["&",1],["=",1],["==",1],["!=",1],["<>",1],
+    ["<",1],["<=",1],[">",1],[">=",1],["++",1],["--",1],["+=",1],["-=",1],["*=",1],
+    ["/=",1],["%=",1],["&=",1],["AND",1],["OR",1],["NOT",1],["!",1]
+  ],
+  "Time & Alarms": [
+    ["TICKS",1],["DATETIME",1],["GETTIMEZONE",1],["ALARMEXEC",1],["DELAY",1],
+    ["SETALARM",1],["TIMEREXEC",1],["STOPALARM",1],["STOPALARMS",1]
+  ],
+  "Communication": [
+    ["SAY",1],["SAYAT",1],["CHAT",1],["LOCALMSG",1],["LOGMSG",1],["GLOBALMSG",1],["ROOMMSG",1],
+    ["PRIVATEMSG",1],["KILLUSER",1],["SUSRMSG",1],["STATUSMSG",1],["TEXTSPEECH",1]
+  ],
+  "User & Avatar": [
+    ["ID",1],["USERID",1],["USERNAME",1],["SETUSERNAME",1],["SETPOS",1],["MOVE",1],
+    ["SETLOC",1],["SETLOCLOCAL",1],["POSX",1],["POSY",1],["SETFACE",1],["SETCOLOR",1],
+    ["DONPROP",1],["DOFFPROP",1],["NAKED",1],["CLEARPROPS",1],["SETPROPS",1],
+    ["NBRUSERPROPS",1],["HASPROP",1],["TOPPROP",1],["USERPROP",1],["REMOVEPROP",1],
+    ["HIDEAVATARS",1],["SHOWAVATARS",1]
+  ],
+  "User Query": [
+    ["WHOCHAT",1],["WHOTARGET",1],["WHONAME",1],["WHOPOS",1],["WHOME",1],
+    ["WHOCOLOR",1],["WHOFACE",1],["ROOMUSER",1],["ISWIZARD",1],["ISGOD",1],["ISGUEST",1]
+  ],
+  "Room Navigation": [
+    ["GOTOROOM",1],["NETGOTO",1],["GOTOURL",1],["ROOMID",1],["ROOMNAME",1],["SERVERNAME",1],
+    ["NBRROOMUSERS",1],["NBRSERVERUSERS",1],["NBRSPOTS",1],["NBRDOORS",1],
+    ["ROOMWIDTH",1],["ROOMHEIGHT",1],["GETROOMOPTIONS",1],["ROOMPICNAME",1],
+    ["NBRROOMPICS",1],["OPENPALACE",1],["PALACECHAT",1],["CLIENTTYPE",1],["CLIENTID",1],
+    ["MEDIAADDRESS",1],["LOADWEBSITE",1],["MOUSEPOS",1]
+  ],
+  "Spot": [
+    ["ME",1],["SPOTIDX",1],["SPOTNAME",1],["SPOTDEST",1],["DEST",1],["DOORIDX",1],["INSPOT",1],
+    ["LOCINSPOT",1],["GETSPOTLOC",1],["GETSPOTSTATE",1],["SETSPOTSTATE",1],
+    ["SETSPOTSTATELOCAL",1],["GETSPOTOPTIONS",1],["SETSPOTOPTIONS",1],["GETSPOTPOINTS",1],
+    ["SETSPOTPOINTS",1],["GETSPOTTYPE",1],["SETSPOTLOC",1],["SETPICLOC",1],["SETPICLOCLOCAL",1],
+    ["SETSPOTNAMELOCAL",1],["SETSPOTDEST",1],["SETSPOTPICMODE",1],["ISLOCKED",1],
+    ["LOCK",1],["UNLOCK",1],["SELECT",1],["MACRO",1]
+  ],
+  "Ext. Room & Spot": [
+    ["ADDPIC",1],["ADDPICNAME",1],["ADDSPOT",1],["AUTOUSERLAYER",1],["CACHESCRIPT",1],
+    ["FILEDATE",0],["FILEDELETE",0],["FILEEXISTS",0],["GETBUBBLESTYLE",0],["GETPICANGLE",1],
+    ["GETPICDIMENSIONS",1],["GETPICLOC",1],["GETSPOTTEXTSIZE",0],["GETPICBRIGHTNESS",1],
+    ["GETPICOPACITY",1],["GETPICSATURATION",1],["GETPICNAME",1],["GETPICPIXEL",1],
+    ["IMAGETOMEDIA",0],["INSERTPIC",1],["ISRIGHTCLICK",1],["NBRPICFRAMES",1],
+    ["PAUSEPIC",1],["REMOVEPIC",1],["REMOVESPOT",1],["RESUMEPIC",1],
+    ["SETPICANGLE",1],["SETPICFRAME",1],["SETPICBRIGHTNESS",1],["SETPICBLUR",1],
+    ["SETPICCONTRAST",1],["SETPICHUE",1],["SETPICOPACITY",1],["SETPICSATURATION",1],
+    ["SETSPOTCLIP",1],["SETSPOTCURVE",1],["SETSPOTFONT",0],["SETSPOTGRADIENT",1],
+    ["SETSPOTPATHGRADIENT",1],["SETSPOTSCRIPT",1],["SETSPOTSTYLE",1]
+  ],
+  "Web Embed": [
+    ["WEBEMBED",1],["WEBLOCATION",1],["WEBTITLE",1],["WEBSCRIPT",1]
+  ],
+  "Loose Props": [
+    ["NBRLOOSEPROPS",1],["ADDLOOSEPROP",1],["DROPPROP",1],["REMOVELOOSEPROP",1],
+    ["MOVELOOSEPROP",1],["CLEARLOOSEPROPS",1],["LOOSEPROP",1],["LOOSEPROPIDX",1],
+    ["LOOSEPROPPOS",1],["LOADPROPS",1],["PROPDIMENSIONS",1],["PROPOFFSETS",1],["WHEREPROP",1],["IMAGETOPROP",1]
+  ],
+  "HTTP & Files": [
+    ["HTTPGET",1],["LOADSCRIPT",1],["HTTPPOST",1],["HTTPCANCEL",1],["ADDHEADER",1],["REMOVEHEADER",1],
+    ["RESETHEADERS",1],["SELECTFILE",1]
+  ],
+  "Sound & MIDI": [
+    ["SOUND",1],["MIDIPLAY",1],["MIDILOOP",1],["MIDISTOP",1],["BEEP",1],
+    ["SOUNDOPEN",0],["SOUNDPLAY",0],["SOUNDPAUSE",0],["SOUNDSEEK",0],["SOUNDSTOP",0],
+    ["SOUNDISPLAYING",0],["SOUNDGETPOSITION",0],["SOUNDLENGTH",0],["SOUNDPLAYFROM",0],
+    ["ISSOUNDPLAYING",0],["ISKEYDOWN",0]
+  ],
+  "Drawing": [
+    ["LINE",1],["LINETO",1],["PENCOLOR",1],["PENSIZE",1],["PENPOS",1],["PENTO",1],
+    ["PENFRONT",1],["PENBACK",1],["PENOPACITY",1],["PENFILLCOLOR",1],["PENFILLOPACITY",1],
+    ["POLYGON",1],["PAINTCLEAR",1],["PAINTUNDO",1],["OVAL",0],["DRAWTEXT",0],
+    ["PENFONT",0],["PENBOLD",0],["PENUNDERLINE",0],["PENITALIC",0],["SHOWPAINT",0]
+  ],
+  "UI & Dialogs": [
+    ["ALERTBOX",1],["CONFIRMBOX",1],["DIMROOM",1],["PROMPT",1],["SETCURSOR",0],["SETCURSORPIC",0],
+    ["SETTOOLTIP",1],["CLEARTOOLTIP",1],["UPDATELATER",1],["UPDATENOW",1]
+  ],
+  "Debug": [
+    ["_TRACE",1],["TRACESTACK",1],["_BREAKPOINT",1],["IPTVERSION",1]
+  ],
+  "Unsupported (Legacy)": [
+    ["LAUNCHAPP",1],["LAUNCHEVENT",1],["LAUNCHPPA",1],["LOADJAVA",1],["SHELLCMD",1],["TALKPPA",1]
+  ]
+};
+
+let tD=0,tT=0,tA=0;
+const secs=[];
+for(const[k,arr] of Object.entries(D)){
+  const d=arr.filter(i=>i[1]).length, t=arr.length;
+  tD+=d; tA+=t;
+  secs.push({title:k,items:arr,done:d,total:t});
+}
+tT=tA-tD;
+const pct=(tD/tA*100).toFixed(1);
+
+document.getElementById('top').innerHTML=`
+  <div class="stat"><div class="l">Total</div><div class="v">${tA}</div></div>
+  <div class="stat"><div class="l">Done</div><div class="v g">${tD}</div></div>
+  <div class="stat"><div class="l">Remaining</div><div class="v r">${tT}</div></div>
+  <div class="stat"><div class="l">Progress</div><div class="v g">${pct}%</div></div>
+  <div class="bar"><div class="s g" style="width:${pct}%"></div></div>`;
+
+const c=document.getElementById('sections');
+for(const s of secs){
+  const p=(s.done/s.total*100).toFixed(0);
+  const d=document.createElement('div');
+  d.className='sec';
+  d.innerHTML=`
+    <div class="sec-h" onclick="this.parentElement.classList.toggle('c')">
+      <h2><span class="chv">▾</span>${s.title}</h2>
+      <div style="display:flex;align-items:center;gap:.8rem">
+        <div class="mini"><div class="s g" style="width:${p}%"></div></div>
+        <span class="ct">${s.done}/${s.total}</span>
+      </div>
+    </div>
+    <div class="sec-b">
+      <div class="grid">${s.items.map(i=>`<div class="item"><span class="icon ${i[1]?'g':'r'}">${i[1]?'✓':'✗'}</span><code>${i[0]}</code></div>`).join('')}</div>
+    </div>`;
+  c.appendChild(d);
+}
+</script>
+</body>
+</html>

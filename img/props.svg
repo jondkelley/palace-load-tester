@@ -1,0 +1,14 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 28" fill="#444">
+  <!-- Left lens -->
+  <circle cx="9" cy="10" r="6" fill="none" stroke="#444" stroke-width="2.5"/>
+  <!-- Right lens -->
+  <circle cx="23" cy="10" r="6" fill="none" stroke="#444" stroke-width="2.5"/>
+  <!-- Bridge -->
+  <path d="M15 10 Q16 7 17 10" fill="none" stroke="#444" stroke-width="2.5"/>
+  <!-- Left arm -->
+  <path d="M3 10 L1 8" fill="none" stroke="#444" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Right arm -->
+  <path d="M29 10 L31 8" fill="none" stroke="#444" stroke-width="2.5" stroke-linecap="round"/>
+  <!-- Mustache -->
+  <path d="M6 22 Q10 17 16 22 Q22 17 26 22 Q22 25 16 24 Q10 25 6 22 Z"/>
+</svg>

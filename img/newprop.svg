@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="#444">
+  <!-- Image/photo frame -->
+  <rect x="3" y="6" width="26" height="20" rx="2" fill="none" stroke="#444" stroke-width="2.5"/>
+  <!-- Mountain/landscape -->
+  <path d="M3 22 L11 13 L17 19 L21 15 L29 22 L29 24 Q29 26 27 26 L5 26 Q3 26 3 24 Z" fill="#444"/>
+  <!-- Sun/star -->
+  <circle cx="22" cy="12" r="3"/>
+  <!-- Plus sign for "new" -->
+  <circle cx="26" cy="6" r="5" fill="#666"/>
+  <path d="M26 3 V9 M23 6 H29" stroke="#fff" stroke-width="1.8" stroke-linecap="round"/>
+</svg>

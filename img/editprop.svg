@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="#444">
+  <!-- Pencil inside circle -->
+  <circle cx="16" cy="16" r="13" fill="none" stroke="#444" stroke-width="2.5"/>
+  <!-- Pencil -->
+  <path d="M11 24 L10 22 L20 12 L22 14 Z"/>
+  <path d="M20 12 L22 10 L24 12 L22 14 Z" fill="#555"/>
+  <path d="M10 22 L11 24 L9 23 Z" fill="#333"/>
+</svg>

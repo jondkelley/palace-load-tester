@@ -1,0 +1,2830 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>PalaceV Iptscrae Reference</title>
+<link href="../css/iptscrae-highlight.css" rel="stylesheet" type="text/css"/>
+<style>
+:root {
+  --bg: #0d1117;
+  --surface: #161b22;
+  --border: #30363d;
+  --text: #e6edf3;
+  --text-muted: #8b949e;
+  --accent: #58a6ff;
+  --accent2: #7ee787;
+  --accent3: #d2a8ff;
+  --accent4: #ffa657;
+  --code-bg: #1c2129;
+  --keyword: #ff7b72;
+  --string: #a5d6ff;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+
+/* Layout */
+.wrapper { display: flex; min-height: 100vh; }
+nav {
+  width: 220px;
+  position: fixed;
+  top: 0; left: 0; bottom: 0;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  overflow-y: auto;
+  padding: 20px 0;
+  z-index: 10;
+}
+nav::-webkit-scrollbar { width: 6px; }
+nav::-webkit-scrollbar-thumb { background: var(--border); border-radius: 3px; }
+main {
+  margin-left: 220px;
+  flex: 1;
+  padding: 40px 60px;
+  max-width: 960px;
+}
+nav h2 {
+  font-size: 16px;
+  color: var(--accent);
+  padding: 8px 20px 4px;
+  margin-top: 12px;
+  text-transform: uppercase;
+  letter-spacing: .05em;
+  font-weight: 600;
+}
+nav h2:first-child { margin-top: 0; }
+nav a {
+  display: block;
+  padding: 3px 20px 3px 32px;
+  font-size: 13px;
+  color: var(--text-muted);
+  transition: color .15s, background .15s;
+}
+nav a:hover { color: var(--text); background: rgba(255,255,255,.04); text-decoration: none; }
+nav .nav-title {
+  display: block;
+  padding: 12px 20px 8px;
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.search-wrap {
+  position: relative;
+  margin: 8px 16px 12px;
+}
+#search-box {
+  padding: 6px 26px 6px 10px;
+  width: 100%;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--text);
+  font-size: 13px;
+  outline: none;
+}
+#search-box:focus { border-color: var(--accent); }
+#search-clear {
+  position: absolute;
+  right: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  color: var(--text-muted);
+  font-size: 14px;
+  cursor: pointer;
+  padding: 0 2px;
+  line-height: 1;
+  display: none;
+}
+#search-clear:hover { color: var(--text); }
+.search-wrap.has-text #search-clear { display: block; }
+.search-hint {
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 10px;
+  color: var(--text-muted);
+  opacity: .5;
+  pointer-events: none;
+  font-family: monospace;
+  border: 1px solid var(--border);
+  border-radius: 3px;
+  padding: 0 4px;
+  line-height: 1.6;
+}
+.search-wrap.has-text .search-hint { display: none; }
+
+h1 {
+  font-size: 32px;
+  margin-bottom: 8px;
+  color: var(--text);
+  border-bottom: 1px solid var(--border);
+  padding-bottom: 12px;
+}
+h2.section-title {
+  font-size: 22px;
+  margin: 48px 0 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid var(--border);
+  color: var(--accent2);
+}
+h3.category-title {
+  font-size: 17px;
+  margin: 32px 0 12px;
+  color: var(--accent3);
+}
+.intro { color: var(--text-muted); margin-bottom: 32px; font-size: 15px; }
+.intro code { background: var(--code-bg); padding: 2px 6px; border-radius: 4px; font-size: 13px; }
+
+/* Card */
+.cmd-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 16px;
+}
+.cmd-card h4 {
+  font-size: 18px;
+  font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+  color: var(--accent4);
+  margin-bottom: 6px;
+}
+.cmd-card .desc { color: var(--text-muted); margin-bottom: 10px; font-size: 14px; }
+.cmd-card .params { margin: 8px 0; }
+.cmd-card .params dt {
+  font-family: monospace;
+  color: var(--accent);
+  font-size: 13px;
+  margin-top: 6px;
+}
+.cmd-card .params dd { color: var(--text-muted); font-size: 13px; margin-left: 16px; }
+.cmd-card pre {
+  background: var(--code-bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  overflow-x: auto;
+  font-size: 13px;
+  line-height: 1.5;
+  margin-top: 10px;
+  color: var(--text);
+}
+.badge {
+  display: inline-block;
+  font-size: 11px;
+  padding: 1px 8px;
+  border-radius: 10px;
+  margin-left: 8px;
+  vertical-align: middle;
+  font-family: sans-serif;
+}
+.badge-event { background: rgba(126,231,135,.15); color: var(--accent2); border: 1px solid rgba(126,231,135,.3); }
+.badge-ext { background: rgba(88,166,255,.12); color: var(--accent); border: 1px solid rgba(88,166,255,.25); }
+.badge-classic { background: rgba(210,168,255,.12); color: var(--accent3); border: 1px solid rgba(210,168,255,.25); }
+.badge-op { background: rgba(255,166,87,.12); color: var(--accent4); border: 1px solid rgba(255,166,87,.25); }
+.badge-dep { background: rgba(255,80,80,.12); color: #f66; border: 1px solid rgba(255,80,80,.3); }
+
+/* Event card special vars table */
+.var-table { width: 100%; border-collapse: collapse; margin-top: 10px; font-size: 13px; }
+.var-table th { text-align: left; color: var(--accent); padding: 4px 8px; border-bottom: 1px solid var(--border); }
+.var-table td { padding: 4px 8px; color: var(--text-muted); border-bottom: 1px solid rgba(48,54,61,.5); }
+.var-table td:first-child { font-family: monospace; color: var(--accent4); }
+
+.tag { font-size: 11px; color: var(--text-muted); text-transform: uppercase; letter-spacing: .04em; }
+
+/* Nav buttons */
+.nav-buttons {
+  display: flex;
+  gap: 6px;
+  padding: 8px 16px 4px;
+}
+.nav-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 28px;
+  background: var(--bg);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  color: var(--accent);
+  font-size: 16px;
+  cursor: pointer;
+  transition: background .15s, color .15s, border-color .15s;
+  user-select: none;
+}
+.nav-btn:hover:not(:disabled) { background: rgba(255,255,255,.06); border-color: var(--accent); }
+.nav-btn:disabled { opacity: .25; cursor: default; }
+
+/* Links inside highlighted code */
+.cmd-card pre a { text-decoration: none; }
+.cmd-card pre a:hover { text-decoration: underline; }
+
+/* Card flash on navigation */
+@keyframes card-flash {
+  0%   { box-shadow: 0 0 0 0 rgba(88,166,255,.5); }
+  40%  { box-shadow: 0 0 12px 3px rgba(88,166,255,.35); }
+  100% { box-shadow: 0 0 0 0 transparent; }
+}
+.cmd-card.flash {
+  animation: card-flash .8s ease-out;
+}
+
+/* Active nav link */
+nav a.active {
+  color: var(--accent);
+  background: rgba(88,166,255,.08);
+  border-left: 2px solid var(--accent);
+  padding-left: 30px;
+}
+
+/* Smooth scroll */
+html { scroll-behavior: smooth; }
+
+/* Responsive */
+@media (max-width: 860px) {
+  nav { display: none; }
+  main { margin-left: 0; padding: 24px 20px; }
+}
+</style>
+</head>
+<body>
+<div class="wrapper">
+
+<nav>
+  <span class="nav-title">Iptscrae Reference</span>
+  <div class="nav-buttons">
+    <button class="nav-btn" id="nav-back" disabled title="Back">&#9664;</button>
+    <button class="nav-btn" id="nav-forward" disabled title="Forward">&#9654;</button>
+  </div>
+  <div class="search-wrap">
+    <input type="text" id="search-box" placeholder="Search commands & events..." autocomplete="off">
+    <button id="search-clear" title="Clear search">&times;</button>
+    <span class="search-hint">/</span>
+  </div>
+
+  <h2>Language Basics</h2>
+  <a href="#overview">Overview</a>
+  <a href="#syntax">Syntax &amp; Stack</a>
+
+  <h2>Events</h2>
+  <a href="#evt-room">Room Lifecycle</a>
+  <a href="#evt-user">User Events</a>
+  <a href="#evt-chat">Chat Events</a>
+  <a href="#evt-mouse">Mouse Events</a>
+  <a href="#evt-keyboard">Keyboard Events</a>
+  <a href="#evt-appearance">Appearance Events</a>
+  <a href="#evt-spot">Spot Events</a>
+  <a href="#evt-prop">Loose Prop Events</a>
+  <a href="#evt-http">HTTP Events</a>
+  <a href="#evt-web">Web Embed Events</a>
+  <a href="#evt-misc">Misc Events</a>
+
+  <h2>Commands</h2>
+  <a href="#cmd-controlflow">Control Flow</a>
+  <a href="#cmd-stack">Stack Operations</a>
+  <a href="#cmd-variables">Variables</a>
+  <a href="#cmd-math">Math</a>
+  <a href="#cmd-string">String</a>
+  <a href="#cmd-array">Array &amp; Hash</a>
+  <a href="#cmd-chat">Chat &amp; Messages</a>
+  <a href="#cmd-user">User &amp; Movement</a>
+  <a href="#cmd-room">Room &amp; Spot</a>
+  <a href="#cmd-pic">Picture Manipulation</a>
+  <a href="#cmd-drawing">Drawing</a>
+  <a href="#cmd-prop">Props</a>
+  <a href="#cmd-http">HTTP &amp; Network</a>
+  <a href="#cmd-web">Web Embed</a>
+  <a href="#cmd-sound">Sound</a>
+  <a href="#cmd-timer">Timers &amp; Alarms</a>
+  <a href="#cmd-ui">UI &amp; Misc</a>
+  <a href="#cmd-operators">Operators</a>
+</nav>
+
+<main>
+<h1 id="overview">PalaceV Iptscrae Reference</h1>
+<p class="intro">
+Complete reference for the Iptscrae scripting language as implemented in <strong>PalaceV</strong>.
+Iptscrae is a <strong>stack-based</strong> (Forth-like / PostScript-like) language using <strong>reverse-polish notation</strong> (RPN).
+All values are pushed onto the stack and commands pop their arguments from it.
+Comments begin with <code>;</code> or <code>#</code>.
+</p>
+
+<!-- ============ SYNTAX ============ -->
+<h2 class="section-title" id="syntax">Syntax &amp; Stack Basics</h2>
+<div class="cmd-card">
+<h4>How the Stack Works</h4>
+<p class="desc">Values are pushed left-to-right, then commands consume them. Iptscrae uses reverse-polish notation.</p>
+<pre>; Push 10 and 20, add them, convert to string, display
+10 20 + <a href="#SAY">SAY</a>   ; says "30"
+
+; String concatenation
+"Hello " <a href="#USERNAME">USERNAME</a> &amp; <a href="#SAY">SAY</a>   ; says "Hello Jamie"
+
+; Conditionals — the atomlist (code block) comes BEFORE the condition
+{ "You're a harry wizard!" <a href="#SAY">SAY</a> } <a href="#ISWIZARD">ISWIZARD</a> <a href="#IF">IF</a>
+
+; Atomlists (code blocks) are delimited by { }
+{ "true branch" <a href="#SAY">SAY</a> } { "false branch" <a href="#SAY">SAY</a> } x 5 == <a href="#IFELSE">IFELSE</a>
+
+; While loop — body atomlist, then condition atomlist
+{ i <a href="#LOGMSG">LOGMSG</a>  i++ } { 10 i &gt; } <a href="#WHILE">WHILE</a>
+
+; Variable assignment with =
+42 myVar =
+"hello" greeting =</pre>
+</div>
+
+<!-- ============ EVENTS ============ -->
+<h2 class="section-title" id="events">Events</h2>
+<p class="intro">Events are declared with <code>ON eventname { ... }</code> in spot or cyborg scripts. Special variables are automatically available inside the event handler.</p>
+
+<!-- Room Lifecycle Events -->
+<h3 class="category-title" id="evt-room">Room Lifecycle</h3>
+
+<div class="cmd-card" id="ENTER">
+<h4>ON ENTER <span class="badge badge-event">event</span></h4>
+<p class="desc">Fires when you enter a room. This is the classic room entry event.</p>
+<pre>ON ENTER {
+    "Welcome to " <a href="#ROOMNAME">ROOMNAME</a> &amp; "!" &amp; <a href="#SAY">SAY</a>
+}</pre>
+</div>
+
+<div class="cmd-card" id="LEAVE">
+<h4>ON LEAVE <span class="badge badge-event">event</span></h4>
+<p class="desc">Fires when you leave the current room.</p>
+<pre>ON LEAVE {
+    ; Clean up alarms before leaving
+    <a href="#STOPALARMS">STOPALARMS</a>
+    <a href="#HTTPCANCEL">HTTPCANCEL</a>
+}</pre>
+</div>
+
+<div class="cmd-card" id="SIGNON">
+<h4>ON SIGNON <span class="badge badge-event">event</span></h4>
+<p class="desc">Fires when you first connect to a server.</p>
+<pre>ON SIGNON {
+    "Connected to " <a href="#SERVERNAME">SERVERNAME</a> &amp; <a href="#LOGMSG">LOGMSG</a>
+}</pre>
+</div>
+
+<div class="cmd-card" id="SIGNOFF">
+<h4>ON SIGNOFF <span class="badge badge-event">event</span></h4>
+<p class="desc">Fires when you disconnect from the server.</p>
+<pre>ON SIGNOFF {
+    "Disconnected." <a href="#LOGMSG">LOGMSG</a>
+}</pre>
+</div>
+
+<div class="cmd-card" id="ROOMLOAD">
+<h4>ON ROOMLOAD <span class="badge badge-event">event</span> <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Fires right before the room is rendered. Useful for making local changes to the display seamlessly.</p>
+<pre>ON ROOMLOAD {
+    ; Modify spot appearance before anything is drawn
+    1 <a href="#AUTOUSERLAYER">AUTOUSERLAYER</a>
+}</pre>
+</div>
+
+<div class="cmd-card" id="ROOMREADY">
+<h4>ON ROOMREADY <span class="badge badge-event">event</span> <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Fires once the room's background image has been downloaded and processed. ROOMWIDTH and ROOMHEIGHT are only accurate inside this event.</p>
+<pre>ON ROOMREADY {
+    "Room size: " <a href="#ROOMWIDTH">ROOMWIDTH</a> &amp; "x" &amp; <a href="#ROOMHEIGHT">ROOMHEIGHT</a> &amp; <a href="#LOGMSG">LOGMSG</a>
+}</pre>
+</div>
+
+<!-- User Events -->
+<h3 class="category-title" id="evt-user">User Events</h3>
+
+<div class="cmd-card" id="USERENTER">
+<h4>ON USERENTER <span class="badge badge-event">event</span> <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Fires when any user enters the room.</p>
+<table class="var-table"><tr><th>Variable</th><th>Description</th></tr>
+<tr><td>WHOENTER</td><td>The ID of the user who entered</td></tr></table>
+<pre>ON USERENTER {
+    "Hello " WHOENTER <a href="#WHONAME">WHONAME</a> &amp; <a href="#SAY">SAY</a>
+}</pre>
+</div>
+
+<div class="cmd-card" id="USERLEAVE">
+<h4>ON USERLEAVE <span class="badge badge-event">event</span> <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Fires when any user leaves the room.</p>
+<table class="var-table"><tr><th>Variable</th><th>Description</th></tr>
+<tr><td>WHOLEAVE</td><td>The ID of the user who left</td></tr></table>
+<pre>ON USERLEAVE {
+    "Goodbye " WHOLEAVE <a href="#WHONAME">WHONAME</a> &amp; <a href="#LOGMSG">LOGMSG</a>
+}</pre>
+</div>
+
+<div class="cmd-card" id="USERMOVE">
+<h4>ON USERMOVE <span class="badge badge-event">event</span> <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Fires when any user moves position.</p>
+<table class="var-table"><tr><th>Variable</th><th>Description</th></tr>
+<tr><td>WHOMOVE</td><td>The ID of the user who moved</td></tr></table>
+<pre>ON USERMOVE {
+    WHOMOVE <a href="#WHOPOS">WHOPOS</a> y = x =
+    x " " &amp; y &amp; <a href="#LOGMSG">LOGMSG</a>
+}</pre>
+</div>
+
+<!-- Chat Events -->
+<h3 class="category-title" id="evt-chat">Chat Events</h3>
+
+<div class="cmd-card" id="INCHAT">
+<h4>ON INCHAT <span class="badge badge-event">event</span></h4>
+<p class="desc">Fires when an incoming chat message is received from another user.</p>
+<table class="var-table"><tr><th>Variable</th><th>Description</th></tr>
+<tr><td>CHATSTR</td><td>The chat message text (read/write &mdash; set to "" to suppress)</td></tr></table>
+<pre>ON INCHAT {
+    ; Log all incoming chat
+    <a href="#WHOCHAT">WHOCHAT</a> <a href="#WHONAME">WHONAME</a> ": " &amp; CHATSTR &amp; <a href="#LOGMSG">LOGMSG</a>
+}</pre>
+</div>
+
+<div class="cmd-card" id="OUTCHAT">
+<h4>ON OUTCHAT <span class="badge badge-event">event</span></h4>
+<p class="desc">Fires when you send a chat message, before it is transmitted.</p>
+<table class="var-table"><tr><th>Variable</th><th>Description</th></tr>
+<tr><td>CHATSTR</td><td>The chat message text (read/write &mdash; modify to change what is sent)</td></tr></table>
+<pre>ON OUTCHAT {
+    ; Auto-correct a word
+    "teh" "the" CHATSTR <a href="#REPLACEALL">REPLACEALL</a> CHATSTR =
+}</pre>
+</div>
+
+<div class="cmd-card" id="SERVERMSG">
+<h4>ON SERVERMSG <span class="badge badge-event">event</span> <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Fires for all server messages (except user chat and local messages).</p>
+<table class="var-table"><tr><th>Variable</th><th>Description</th></tr>
+<tr><td>CHATSTR</td><td>The server message text</td></tr></table>
+<pre>ON SERVERMSG {
+    CHATSTR <a href="#LOGMSG">LOGMSG</a>
+}</pre>
+</div>
+
+<!-- Mouse Events -->
+<h3 class="category-title" id="evt-mouse">Mouse Events</h3>
+
+<div class="cmd-card" id="ON_SELECT">
+<h4>ON SELECT <span class="badge badge-event">event</span></h4>
+<p class="desc">Fires when a user clicks on a spot. The classic spot click event.</p>
+<pre>ON SELECT {
+    "You clicked me!" <a href="#SAY">SAY</a>
+}</pre>
+</div>
+
+<div class="cmd-card" id="MOUSEDOWN">
+<h4>ON MOUSEDOWN <span class="badge badge-event">event</span> <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Same as ON SELECT. Fires when the mouse button is pressed on a spot.</p>
+<pre>ON MOUSEDOWN {
+    "Mouse pressed!" <a href="#LOGMSG">LOGMSG</a>
+}</pre>
+</div>
+
+<div class="cmd-card" id="MOUSEUP">
+<h4>ON MOUSEUP <span class="badge badge-event">event</span> <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Fires when the mouse button is released while still over the spot.</p>
+<pre>ON MOUSEUP {
+    "Mouse released!" <a href="#LOGMSG">LOGMSG</a>
+}</pre>
+</div>
+
+<div class="cmd-card" id="MOUSEMOVE">
+<h4>ON MOUSEMOVE <span class="badge badge-event">event</span> <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Fires continuously as the mouse moves over the spot. Use MOUSEPOS to get coordinates.</p>
+<pre>ON MOUSEMOVE {
+    <a href="#MOUSEPOS">MOUSEPOS</a> y = x =
+    x "," &amp; y &amp; <a href="#LOGMSG">LOGMSG</a>
+}</pre>
+</div>
+
+<div class="cmd-card" id="MOUSEDRAG">
+<h4>ON MOUSEDRAG <span class="badge badge-event">event</span> <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Fires continuously as the user clicks and drags on a spot.</p>
+<pre>ON MOUSEDRAG {
+    <a href="#MOUSEPOS">MOUSEPOS</a> y = x =
+    x y <a href="#ME">ME</a> <a href="#SETLOCLOCAL">SETLOCLOCAL</a>
+}</pre>
+</div>
+
+<div class="cmd-card" id="ROLLOVER">
+<h4>ON ROLLOVER <span class="badge badge-event">event</span> <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Fires when the mouse cursor enters the spot's area.</p>
+<pre>ON ROLLOVER {
+    1 <a href="#ME">ME</a> <a href="#SETSPOTSTATELOCAL">SETSPOTSTATELOCAL</a>   ; Make button glow
+}</pre>
+</div>
+
+<div class="cmd-card" id="ROLLOUT">
+<h4>ON ROLLOUT <span class="badge badge-event">event</span> <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Fires when the mouse cursor leaves the spot's area.</p>
+<pre>ON ROLLOUT {
+    0 <a href="#ME">ME</a> <a href="#SETSPOTSTATELOCAL">SETSPOTSTATELOCAL</a>   ; Reset button
+}</pre>
+</div>
+
+<!-- Keyboard Events -->
+<h3 class="category-title" id="evt-keyboard">Keyboard Events</h3>
+
+<div class="cmd-card" id="KEYDOWN">
+<h4>ON KEYDOWN <span class="badge badge-event">event</span> <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Fires when a key is pressed (not macro or face/color keys). Only fires when the environment is in focus, not when typing in the chatfield. Setting KEYSTR to "" prevents the chatfield from gaining focus.</p>
+<table class="var-table"><tr><th>Variable</th><th>Description</th></tr>
+<tr><td>KEYSTR</td><td>The key that was pressed</td></tr></table>
+<pre>ON KEYDOWN {
+    {"Left arrow pressed" <a href="#LOGMSG">LOGMSG</a>} 123 <a href="#ISKEYDOWN">ISKEYDOWN</a> <a href="#IF">IF</a>
+    {"Right arrow pressed" <a href="#LOGMSG">LOGMSG</a>} 124 <a href="#ISKEYDOWN">ISKEYDOWN</a> <a href="#IF">IF</a>
+}</pre>
+</div>
+
+<div class="cmd-card" id="KEYUP">
+<h4>ON KEYUP <span class="badge badge-event">event</span> <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Fires when a key is released. Same scope restrictions as KEYDOWN.</p>
+<table class="var-table"><tr><th>Variable</th><th>Description</th></tr>
+<tr><td>KEYSTR</td><td>The key that was released</td></tr></table>
+<pre>ON KEYUP {
+    "Key released: " KEYSTR &amp; <a href="#LOGMSG">LOGMSG</a>
+}</pre>
+</div>
+
+<!-- Appearance Events -->
+<h3 class="category-title" id="evt-appearance">Appearance Events</h3>
+
+<div class="cmd-card" id="COLORCHANGE">
+<h4>ON COLORCHANGE <span class="badge badge-event">event</span> <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Fires when any user changes their color.</p>
+<table class="var-table"><tr><th>Variable</th><th>Description</th></tr>
+<tr><td>WHOCHANGE</td><td>The ID of the user who changed</td></tr></table>
+<pre>ON COLORCHANGE {
+    WHOCHANGE <a href="#WHONAME">WHONAME</a> " changed color to " &amp; WHOCHANGE <a href="#WHOCOLOR">WHOCOLOR</a> &amp; <a href="#LOGMSG">LOGMSG</a>
+}</pre>
+</div>
+
+<div class="cmd-card" id="FACECHANGE">
+<h4>ON FACECHANGE <span class="badge badge-event">event</span> <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Fires when any user changes their face.</p>
+<table class="var-table"><tr><th>Variable</th><th>Description</th></tr>
+<tr><td>WHOCHANGE</td><td>The ID of the user who changed</td></tr></table>
+<pre>ON FACECHANGE {
+    WHOCHANGE <a href="#WHONAME">WHONAME</a> " changed face to " &amp; WHOCHANGE <a href="#WHOFACE">WHOFACE</a> &amp; <a href="#LOGMSG">LOGMSG</a>
+}</pre>
+</div>
+
+<div class="cmd-card" id="NAMECHANGE">
+<h4>ON NAMECHANGE <span class="badge badge-event">event</span> <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Fires when any user changes their username.</p>
+<table class="var-table"><tr><th>Variable</th><th>Description</th></tr>
+<tr><td>WHOCHANGE</td><td>The ID of the user who changed their name</td></tr>
+<tr><td>LASTNAME</td><td>The user's name before the change</td></tr></table>
+<pre>ON NAMECHANGE {
+    LASTNAME " changed name to " &amp; WHOCHANGE <a href="#WHONAME">WHONAME</a> &amp; <a href="#LOGMSG">LOGMSG</a>
+}</pre>
+</div>
+
+<!-- Spot Events -->
+<h3 class="category-title" id="evt-spot">Spot Events</h3>
+
+<div class="cmd-card" id="STATECHANGE">
+<h4>ON STATECHANGE <span class="badge badge-event">event</span> <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Fires when a door's state changes.</p>
+<table class="var-table"><tr><th>Variable</th><th>Description</th></tr>
+<tr><td>LASTSTATE</td><td>The previous state index</td></tr></table>
+<pre>ON STATECHANGE {
+    <a href="#ME">ME</a> <a href="#GETSPOTSTATE">GETSPOTSTATE</a> newState =
+    "State changed from " LASTSTATE &amp; " to " &amp; newState &amp; <a href="#LOGMSG">LOGMSG</a>
+}</pre>
+</div>
+
+<div class="cmd-card" id="FRAMECHANGE">
+<h4>ON FRAMECHANGE <span class="badge badge-event">event</span> <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Fires every time the frame changes for an animated GIF in the current spot state.</p>
+<table class="var-table"><tr><th>Variable</th><th>Description</th></tr>
+<tr><td>FRAME</td><td>The current frame index number</td></tr></table>
+<pre>ON FRAMECHANGE {
+    "Frame: " FRAME &amp; <a href="#LOGMSG">LOGMSG</a>
+}</pre>
+</div>
+
+<!-- Loose Prop Events -->
+<h3 class="category-title" id="evt-prop">Loose Prop Events</h3>
+
+<div class="cmd-card" id="LOOSEPROPADDED">
+<h4>ON LOOSEPROPADDED <span class="badge badge-event">event</span> <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Fires when a loose prop is added to the room.</p>
+<table class="var-table"><tr><th>Variable</th><th>Description</th></tr>
+<tr><td>WHATPROP</td><td>The prop's ID</td></tr></table>
+<pre>ON LOOSEPROPADDED {
+    "Prop added: " WHATPROP &amp; <a href="#LOGMSG">LOGMSG</a>
+}</pre>
+</div>
+
+<div class="cmd-card" id="LOOSEPROPMOVED">
+<h4>ON LOOSEPROPMOVED <span class="badge badge-event">event</span> <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Fires when a loose prop is moved in the room.</p>
+<table class="var-table"><tr><th>Variable</th><th>Description</th></tr>
+<tr><td>WHATPROP</td><td>The prop's ID</td></tr>
+<tr><td>WHATINDEX</td><td>The index of the moved prop</td></tr></table>
+<pre>ON LOOSEPROPMOVED {
+    "Prop " WHATPROP &amp; " moved" &amp; <a href="#LOGMSG">LOGMSG</a>
+}</pre>
+</div>
+
+<div class="cmd-card" id="LOOSEPROPDELETED">
+<h4>ON LOOSEPROPDELETED <span class="badge badge-event">event</span> <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Fires when a loose prop is removed from the room.</p>
+<table class="var-table"><tr><th>Variable</th><th>Description</th></tr>
+<tr><td>WHATPROP</td><td>The prop's ID</td></tr>
+<tr><td>WHATINDEX</td><td>The index of the deleted prop</td></tr></table>
+<pre>ON LOOSEPROPDELETED {
+    "Prop removed: " WHATPROP &amp; <a href="#LOGMSG">LOGMSG</a>
+}</pre>
+</div>
+
+<!-- HTTP Events -->
+<h3 class="category-title" id="evt-http">HTTP Events</h3>
+
+<div class="cmd-card" id="HTTPRECEIVED">
+<h4>ON HTTPRECEIVED <span class="badge badge-event">event</span> <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Fires in the spot where HTTPGET or HTTPPOST was called when content is received. Some content types (iptscrae, images, html) are processed automatically after. Set CONTENTS to "" to prevent automatic processing.</p>
+<table class="var-table"><tr><th>Variable</th><th>Description</th></tr>
+<tr><td>CONTENTS</td><td>The received content (atomlist if text/iptscrae, string otherwise). Read/write.</td></tr>
+<tr><td>HEADERS</td><td>The HTTP response headers as a Hash element</td></tr>
+<tr><td>TYPE</td><td>The Content-Type of the response</td></tr>
+<tr><td>FILENAME</td><td>The filename of the received file</td></tr></table>
+<pre>ON HTTPRECEIVED {
+    ; Check the content type and log it
+    "Received: " TYPE &amp; " (" &amp; FILENAME &amp; ")" &amp; <a href="#LOGMSG">LOGMSG</a>
+    {
+        ; Save image with custom name
+        "custom.png" CONTENTS <a href="#IMAGETOMEDIA">IMAGETOMEDIA</a>
+        "" CONTENTS =   ; Prevent double-save
+    } TYPE "image/png" <a href="#REGEXP">REGEXP</a> <a href="#IF">IF</a>
+}</pre>
+</div>
+
+<div class="cmd-card" id="HTTPERROR">
+<h4>ON HTTPERROR <span class="badge badge-event">event</span> <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Fires when a download error occurs after HTTPGET or HTTPPOST.</p>
+<table class="var-table"><tr><th>Variable</th><th>Description</th></tr>
+<tr><td>ERRORMSG</td><td>The error message string</td></tr></table>
+<pre>ON HTTPERROR {
+    "HTTP Error: " ERRORMSG &amp; <a href="#LOGMSG">LOGMSG</a>
+}</pre>
+</div>
+
+<div class="cmd-card" id="HTTPRECEIVEPROGRESS">
+<h4>ON HTTPRECEIVEPROGRESS <span class="badge badge-event">event</span> <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Fires when new data is received from an HTTP connection.</p>
+<table class="var-table"><tr><th>Variable</th><th>Description</th></tr>
+<tr><td>BYTESRECEIVED</td><td>Number of bytes received so far</td></tr>
+<tr><td>TOTALBYTES</td><td>Total expected bytes</td></tr></table>
+<pre>ON HTTPRECEIVEPROGRESS {
+    "Downloaded " BYTESRECEIVED &amp; "/" &amp; TOTALBYTES &amp; <a href="#LOGMSG">LOGMSG</a>
+}</pre>
+</div>
+
+<div class="cmd-card" id="HTTPSENDPROGRESS">
+<h4>ON HTTPSENDPROGRESS <span class="badge badge-event">event</span> <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Fires when data is being sent from an HTTPPOST connection.</p>
+<table class="var-table"><tr><th>Variable</th><th>Description</th></tr>
+<tr><td>BYTESSENT</td><td>Number of bytes sent so far</td></tr>
+<tr><td>BYTESLEFT</td><td>Number of bytes remaining</td></tr></table>
+<pre>ON HTTPSENDPROGRESS {
+    "Sent " BYTESSENT &amp; " bytes" &amp; <a href="#LOGMSG">LOGMSG</a>
+}</pre>
+</div>
+
+<!-- Web Embed Events -->
+<h3 class="category-title" id="evt-web">Web Embed Events</h3>
+
+<div class="cmd-card" id="WEBSTATUS">
+<h4>ON WEBSTATUS <span class="badge badge-event">event</span> <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Fires in the door of a WEBEMBED when its status changes.</p>
+<table class="var-table"><tr><th>Variable</th><th>Description</th></tr>
+<tr><td>NEWSTATUS</td><td>The new status string</td></tr></table>
+<pre>ON WEBSTATUS {
+    "Web status: " NEWSTATUS &amp; <a href="#LOGMSG">LOGMSG</a>
+}</pre>
+</div>
+
+<div class="cmd-card" id="ON_WEBTITLE">
+<h4>ON WEBTITLE <span class="badge badge-event">event</span> <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Fires when the title of a WEBEMBED changes.</p>
+<table class="var-table"><tr><th>Variable</th><th>Description</th></tr>
+<tr><td>NEWTITLE</td><td>The new title string</td></tr></table>
+<pre>ON WEBTITLE {
+    "Page title: " NEWTITLE &amp; <a href="#LOGMSG">LOGMSG</a>
+}</pre>
+</div>
+
+<div class="cmd-card" id="WEBDOCBEGIN">
+<h4>ON WEBDOCBEGIN <span class="badge badge-event">event</span> <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Fires when a WEBEMBED begins downloading a document.</p>
+<table class="var-table"><tr><th>Variable</th><th>Description</th></tr>
+<tr><td>DOCURL</td><td>The URL of the document</td></tr></table>
+<pre>ON WEBDOCBEGIN {
+    "Loading: " DOCURL &amp; <a href="#LOGMSG">LOGMSG</a>
+}</pre>
+</div>
+
+<div class="cmd-card" id="WEBDOCDONE">
+<h4>ON WEBDOCDONE <span class="badge badge-event">event</span> <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Fires when a WEBEMBED finishes downloading a document.</p>
+<table class="var-table"><tr><th>Variable</th><th>Description</th></tr>
+<tr><td>DOCURL</td><td>The URL of the document</td></tr></table>
+<pre>ON WEBDOCDONE {
+    {
+        "Page finished loading!" <a href="#LOGMSG">LOGMSG</a>
+    } <a href="#ME">ME</a> <a href="#WEBLOCATION">WEBLOCATION</a> DOCURL == <a href="#IF">IF</a>
+}</pre>
+</div>
+
+<!-- Misc Events -->
+<h3 class="category-title" id="evt-misc">Misc Events</h3>
+
+<div class="cmd-card" id="ALARM">
+<h4>ON ALARM <span class="badge badge-event">event</span></h4>
+<p class="desc">Fires when an alarm set by SETALARM triggers.</p>
+<pre>ON ALARM {
+    "Alarm fired!" <a href="#LOGMSG">LOGMSG</a>
+}</pre>
+</div>
+
+<div class="cmd-card" id="IDLE">
+<h4>ON IDLE <span class="badge badge-event">event</span> <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Fires when the user has been idle for 10 minutes.</p>
+<pre>ON IDLE {
+    "You've been idle for a while!" <a href="#LOCALMSG">LOCALMSG</a>
+}</pre>
+</div>
+
+
+<!-- ======================================================================== -->
+<!--                          COMMANDS                                        -->
+<!-- ======================================================================== -->
+<h2 class="section-title" id="commands">Commands</h2>
+
+<!-- Control Flow -->
+<h3 class="category-title" id="cmd-controlflow">Control Flow</h3>
+
+<div class="cmd-card" id="IF">
+<h4>IF <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Executes an atomlist if the condition is true (non-zero).</p>
+<dl class="params"><dt>atomlist</dt><dd>Code block to execute if true</dd><dt>condition</dt><dd>Integer — non-zero is true</dd></dl>
+<pre># IF — conditional execution
+{ "You're a wizard!" <a href="#SAY">SAY</a> } <a href="#ISWIZARD">ISWIZARD</a> IF</pre>
+</div>
+
+<div class="cmd-card" id="IFELSE">
+<h4>IFELSE <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Executes one of two atomlists based on a condition.</p>
+<dl class="params"><dt>trueAtomlist</dt><dd>Code block for true</dd><dt>falseAtomlist</dt><dd>Code block for false</dd><dt>condition</dt><dd>Integer — non-zero is true</dd></dl>
+<pre># IFELSE — if/else branching
+{ "Wizard!" <a href="#SAY">SAY</a> } { "Not a wizard." <a href="#SAY">SAY</a> } <a href="#ISWIZARD">ISWIZARD</a> IFELSE</pre>
+</div>
+
+<div class="cmd-card" id="WHILE">
+<h4>WHILE <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Loops executing the body atomlist as long as the condition atomlist evaluates to true.</p>
+<dl class="params"><dt>bodyAtomlist</dt><dd>Code block to execute each iteration</dd><dt>conditionAtomlist</dt><dd>Code block that pushes a boolean</dd></dl>
+<pre># WHILE — loop from 0 to 9
+0 i =
+{ i <a href="#LOGMSG">LOGMSG</a>  i++ } { 10 i &gt; } WHILE</pre>
+</div>
+
+<div class="cmd-card" id="FOREACH">
+<h4>FOREACH <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Iterates over each element of an array, pushing each element onto the stack before executing the body.</p>
+<dl class="params"><dt>bodyAtomlist</dt><dd>Code to run per element (element is on the stack)</dd><dt>array</dt><dd>The array to iterate over</dd></dl>
+<pre># FOREACH — iterate an array
+3 <a href="#ARRAY">ARRAY</a> myArr =
+"a" myArr 0 <a href="#PUT">PUT</a>  "b" myArr 1 <a href="#PUT">PUT</a>  "c" myArr 2 <a href="#PUT">PUT</a>
+{ <a href="#LOGMSG">LOGMSG</a> } myArr FOREACH</pre>
+</div>
+
+<div class="cmd-card" id="EXEC">
+<h4>EXEC <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Executes an atomlist from the stack.</p>
+<dl class="params"><dt>atomlist</dt><dd>The code block to execute</dd></dl>
+<pre># EXEC — execute a code block
+{ "Hello!" <a href="#SAY">SAY</a> } myCode =
+myCode EXEC</pre>
+</div>
+
+<div class="cmd-card" id="BREAK">
+<h4>BREAK <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Breaks out of the current WHILE or FOREACH loop.</p>
+<pre># BREAK — exit loop early
+{ { BREAK } i 5 == <a href="#IF">IF</a>  i++ } { 10 i &gt; } <a href="#WHILE">WHILE</a></pre>
+</div>
+
+<div class="cmd-card" id="RETURN">
+<h4>RETURN <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Returns from the current atomlist execution immediately.</p>
+<pre># RETURN — exit current code block
+{ { RETURN } x 0 == <a href="#IF">IF</a>  "Continuing..." <a href="#LOGMSG">LOGMSG</a> } <a href="#EXEC">EXEC</a></pre>
+</div>
+
+<div class="cmd-card" id="EXIT">
+<h4>EXIT <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Halts all script execution for the current event.</p>
+<pre># EXIT — stop all script execution
+{ EXIT } dangerousCondition <a href="#IF">IF</a></pre>
+</div>
+
+<!-- Stack Operations -->
+<h3 class="category-title" id="cmd-stack">Stack Operations</h3>
+
+<div class="cmd-card" id="DUP">
+<h4>DUP <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Duplicates the top item on the stack.</p>
+<pre># DUP — duplicate top of stack
+42 DUP  ; stack: 42 42</pre>
+</div>
+
+<div class="cmd-card" id="POP">
+<h4>POP <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Removes the top item from the stack.</p>
+<pre># POP — discard top of stack
+1 2 3 POP  ; stack: 1 2</pre>
+</div>
+
+<div class="cmd-card" id="SWAP">
+<h4>SWAP <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Swaps the top two items on the stack.</p>
+<pre># SWAP — swap top two items
+1 2 SWAP  ; stack: 2 1</pre>
+</div>
+
+<div class="cmd-card" id="OVER">
+<h4>OVER <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Copies the second item to the top of the stack.</p>
+<pre># OVER — copy second item to top
+1 2 OVER  ; stack: 1 2 1</pre>
+</div>
+
+<div class="cmd-card" id="PICK">
+<h4>PICK <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Copies the Nth item from the stack to the top.</p>
+<dl class="params"><dt>n</dt><dd>Zero-based index from top of stack</dd></dl>
+<pre># PICK — copy Nth item
+10 20 30 2 PICK  ; stack: 10 20 30 10</pre>
+</div>
+
+<div class="cmd-card" id="STACKDEPTH">
+<h4>STACKDEPTH <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Pushes the current number of items on the stack.</p>
+<pre># STACKDEPTH — check stack size
+1 2 3 STACKDEPTH <a href="#LOGMSG">LOGMSG</a>  ; logs "3"</pre>
+</div>
+
+<!-- Variables -->
+<h3 class="category-title" id="cmd-variables">Variables</h3>
+
+<div class="cmd-card" id="ASSIGN">
+<h4>= (Assign) <span class="badge badge-op">operator</span></h4>
+<p class="desc">Assigns the top stack value to a variable. Also available as DEF.</p>
+<pre># = — variable assignment
+42 myVar =
+"Hello" greeting =</pre>
+</div>
+
+<div class="cmd-card" id="GLOBAL">
+<h4>GLOBAL <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Declares a variable as global, persisting across events within the same scope (room or cyborg). Alias: SGLOBAL.</p>
+<dl class="params"><dt>variableName</dt><dd>The name of the variable (used after it, e.g. <code>score GLOBAL</code>)</dd></dl>
+<pre># GLOBAL — persistent variable
+score GLOBAL
+score 1 + score =</pre>
+</div>
+
+<div class="cmd-card" id="TOPTYPE">
+<h4>TOPTYPE <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Pushes the type of the top stack item as an integer without consuming it.</p>
+<pre># TOPTYPE — check what's on the stack
+"hello" TOPTYPE <a href="#LOGMSG">LOGMSG</a></pre>
+</div>
+
+<div class="cmd-card" id="VARTYPE">
+<h4>VARTYPE <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Pushes the type of a variable as an integer.</p>
+<pre># VARTYPE — check variable type
+myVar VARTYPE <a href="#LOGMSG">LOGMSG</a></pre>
+</div>
+
+<!-- Math -->
+<h3 class="category-title" id="cmd-math">Math</h3>
+
+<div class="cmd-card" id="RANDOM">
+<h4>RANDOM <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Pushes a random integer from 0 to N-1.</p>
+<dl class="params"><dt>max</dt><dd>Upper bound (exclusive)</dd></dl>
+<pre># RANDOM — random number 0..99
+100 RANDOM <a href="#SAY">SAY</a></pre>
+</div>
+
+<div class="cmd-card" id="COSINE">
+<h4>COSINE <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Pushes the cosine of an angle (in degrees) multiplied by 1000.</p>
+<pre># COSINE — trig function
+90 COSINE  ; pushes ~0</pre>
+</div>
+
+<div class="cmd-card" id="SINE">
+<h4>SINE <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Pushes the sine of an angle (in degrees) multiplied by 1000.</p>
+<pre># SINE — trig function
+90 SINE  ; pushes ~1000</pre>
+</div>
+
+<div class="cmd-card" id="TANGENT">
+<h4>TANGENT <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Pushes the tangent of an angle (in degrees) multiplied by 1000.</p>
+<pre># TANGENT — trig function
+45 TANGENT  ; pushes ~1000</pre>
+</div>
+
+<div class="cmd-card" id="ABSVALUE">
+<h4>ABSVALUE <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Pushes the absolute value of a number.</p>
+<pre># ABSVALUE — absolute value
+-42 ABSVALUE <a href="#SAY">SAY</a>  ; says "42"</pre>
+</div>
+
+<div class="cmd-card" id="POWER">
+<h4>POWER <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Raises a number to a power.</p>
+<dl class="params"><dt>base</dt><dd>The base number</dd><dt>exponent</dt><dd>The power to raise to</dd></dl>
+<pre># POWER — exponentiation
+2 10 POWER <a href="#SAY">SAY</a>  ; says "1024"</pre>
+</div>
+
+<div class="cmd-card" id="SQRT">
+<h4>SQRT <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Pushes the square root of a number.</p>
+<pre># SQRT — square root
+144 SQRT <a href="#SAY">SAY</a>  ; says "12"</pre>
+</div>
+
+<div class="cmd-card" id="ROUNDNUM">
+<h4>ROUNDNUM <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Rounds a number to the nearest integer.</p>
+<pre># ROUNDNUM — round a number
+7 ROUNDNUM</pre>
+</div>
+
+<div class="cmd-card" id="BITAND">
+<h4>BITAND <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Performs a bitwise AND on two numbers.</p>
+<pre># BITAND — bitwise and
+{ "True!" <a href="#SAY">SAY</a> } 1 1 BITAND <a href="#IF">IF</a></pre>
+</div>
+
+<div class="cmd-card" id="BITOR">
+<h4>BITOR <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Performs a bitwise OR on two numbers.</p>
+<pre># BITOR — bitwise or
+5 3 BITOR <a href="#LOGMSG">LOGMSG</a>  ; logs "7"</pre>
+</div>
+
+<div class="cmd-card" id="BITXOR">
+<h4>BITXOR <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Performs a bitwise XOR on two numbers.</p>
+<pre># BITXOR — bitwise xor
+5 3 BITXOR <a href="#LOGMSG">LOGMSG</a>  ; logs "6"</pre>
+</div>
+
+<div class="cmd-card" id="BITSHIFTLEFT">
+<h4>BITSHIFTLEFT <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Shifts the bits of a number to the left.</p>
+<dl class="params"><dt>aNumber</dt><dd>Value to shift</dd><dt>shiftAmount</dt><dd>Number of bits to shift</dd></dl>
+<pre># BITSHIFTLEFT — left shift
+1 8 BITSHIFTLEFT <a href="#SAY">SAY</a>  ; says "256"</pre>
+</div>
+
+<div class="cmd-card" id="BITSHIFTRIGHT">
+<h4>BITSHIFTRIGHT <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Shifts the bits of a number to the right.</p>
+<dl class="params"><dt>aNumber</dt><dd>Value to shift</dd><dt>shiftAmount</dt><dd>Number of bits to shift</dd></dl>
+<pre># BITSHIFTRIGHT — right shift
+256 8 BITSHIFTRIGHT <a href="#SAY">SAY</a>  ; says "1"</pre>
+</div>
+
+<!-- String -->
+<h3 class="category-title" id="cmd-string">String Operations</h3>
+
+<div class="cmd-card" id="ATOI">
+<h4>ATOI <span class="badge badge-classic">classic</span> <span class="badge badge-dep">deprecated</span></h4>
+<p class="desc">Converts a string to an integer. Deprecated — type conversion is automatic.</p>
+<pre># ATOI — string to integer
+"42" ATOI  ; pushes 42
+
+; No longer needed — strings auto-convert to numbers
+"10" 5 +  ; result is 15</pre>
+</div>
+
+<div class="cmd-card" id="ITOA">
+<h4>ITOA <span class="badge badge-classic">classic</span> <span class="badge badge-dep">deprecated</span></h4>
+<p class="desc">Converts an integer to a string. Deprecated — type conversion is automatic.</p>
+<pre># ITOA — integer to string
+42 ITOA  ; pushes "42"
+
+; No longer needed — numbers auto-convert to strings
+"Score: " 100 &amp; <a href="#SAY">SAY</a>  ; says "Score: 100"</pre>
+</div>
+
+<div class="cmd-card" id="STRLEN">
+<h4>STRLEN <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Pushes the length of a string.</p>
+<pre># STRLEN — string length
+"Hello" STRLEN <a href="#SAY">SAY</a>  ; says "5"</pre>
+</div>
+
+<div class="cmd-card" id="STRINDEX">
+<h4>STRINDEX <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Finds the index of a substring within a string. Returns -1 if not found.</p>
+<pre># STRINDEX — find substring position
+"lo" "Hello" STRINDEX <a href="#SAY">SAY</a>  ; says "3"</pre>
+</div>
+
+<div class="cmd-card" id="SUBSTR">
+<h4>SUBSTR <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Extracts a substring by start position and length.</p>
+<dl class="params"><dt>string</dt><dd>Source string</dd><dt>start</dt><dd>Start index</dd><dt>length</dt><dd>Number of characters</dd></dl>
+<pre># SUBSTR — extract substring
+"Hello World" 6 5 SUBSTR <a href="#SAY">SAY</a>  ; says "World"</pre>
+</div>
+
+<div class="cmd-card" id="SUBSTRING">
+<h4>SUBSTRING <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Extracts a substring by start position and length (alternate form).</p>
+<pre># SUBSTRING — extract substring
+"Hello" 0 3 SUBSTRING <a href="#SAY">SAY</a>  ; says "Hel"</pre>
+</div>
+
+<div class="cmd-card" id="LOWERCASE">
+<h4>LOWERCASE <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Converts a string to lowercase.</p>
+<pre># LOWERCASE — to lower
+"HELLO" LOWERCASE <a href="#SAY">SAY</a>  ; says "hello"</pre>
+</div>
+
+<div class="cmd-card" id="UPPERCASE">
+<h4>UPPERCASE <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Converts a string to uppercase.</p>
+<pre># UPPERCASE — to upper
+"hello" UPPERCASE <a href="#SAY">SAY</a>  ; says "HELLO"</pre>
+</div>
+
+<div class="cmd-card" id="STRTOATOM">
+<h4>STRTOATOM <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Parses a string as Iptscrae code and pushes the result as an atomlist.</p>
+<pre># STRTOATOM — parse string as code
+"\"Hello!\" SAY" STRTOATOM <a href="#EXEC">EXEC</a></pre>
+</div>
+
+<div class="cmd-card" id="CHARTONUM">
+<h4>CHARTONUM <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Returns the ASCII code of a character.</p>
+<pre># CHARTONUM — char to ASCII code
+"A" CHARTONUM <a href="#LOGMSG">LOGMSG</a>  ; logs "65"</pre>
+</div>
+
+<div class="cmd-card" id="NUMTOCHAR">
+<h4>NUMTOCHAR <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Returns the character for an ASCII code.</p>
+<pre># NUMTOCHAR — ASCII code to char
+65 NUMTOCHAR <a href="#SAY">SAY</a>  ; says "A"</pre>
+</div>
+
+<div class="cmd-card" id="REPLACE">
+<h4>REPLACE <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Replaces the first occurrence of a string.</p>
+<dl class="params"><dt>oldString</dt><dd>String to find</dd><dt>newString</dt><dd>Replacement string</dd><dt>sourceString</dt><dd>Original string</dd></dl>
+<pre># REPLACE — replace first occurrence
+"it" "this" "I find this handy." REPLACE <a href="#SAY">SAY</a></pre>
+</div>
+
+<div class="cmd-card" id="REPLACEALL">
+<h4>REPLACEALL <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Replaces all occurrences of a string.</p>
+<pre># REPLACEALL — replace all occurrences
+" " "_" "Hello World Test" REPLACEALL <a href="#SAY">SAY</a>  ; "Hello_World_Test"</pre>
+</div>
+
+<div class="cmd-card" id="GREPSTR">
+<h4>GREPSTR <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Tests a string against a regex pattern. Pushes 1 if matched, 0 otherwise. Patterns are filtered for backward compatibility.</p>
+<pre># GREPSTR — regex match test
+{ "Contains hello!" <a href="#SAY">SAY</a> } "hello" CHATSTR GREPSTR <a href="#IF">IF</a></pre>
+</div>
+
+<div class="cmd-card" id="GREPSUB">
+<h4>GREPSUB <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Regex substitution with up to 10 matches.</p>
+<pre># GREPSUB — regex replace
+"world" "hello" "hello world" GREPSUB <a href="#SAY">SAY</a></pre>
+</div>
+
+<div class="cmd-card" id="REGEXP">
+<h4>REGEXP <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Like GREPSTR but uses full PCRE regex without backward-compatibility filtering.</p>
+<pre># REGEXP — full regex match
+{ "Match!" <a href="#SAY">SAY</a> } "^[A-Z]+" "HELLO" REGEXP <a href="#IF">IF</a></pre>
+</div>
+
+<div class="cmd-card" id="REGEXPREPLACE">
+<h4>REGEXPREPLACE <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Like GREPSUB but not limited to 10 matches.</p>
+<pre># REGEXPREPLACE — unlimited regex replace
+"_" "\\s+" "Hello   World" REGEXPREPLACE <a href="#SAY">SAY</a></pre>
+</div>
+
+<div class="cmd-card" id="ENCODEURL">
+<h4>ENCODEURL <span class="badge badge-ext">extended</span></h4>
+<p class="desc">URL-encodes a string for safe use in HTTP requests.</p>
+<pre># ENCODEURL — URL encode
+<a href="#USERNAME">USERNAME</a> ENCODEURL <a href="#SAY">SAY</a></pre>
+</div>
+
+<div class="cmd-card" id="DECODEURL">
+<h4>DECODEURL <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Decodes a URL-encoded string.</p>
+<pre># DECODEURL — URL decode
+"Hello%20World" DECODEURL <a href="#SAY">SAY</a>  ; says "Hello World"</pre>
+</div>
+
+<!-- Array & Hash -->
+<h3 class="category-title" id="cmd-array">Array &amp; Hash</h3>
+
+<div class="cmd-card" id="ARRAY">
+<h4>ARRAY <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Creates a new array of the specified size.</p>
+<dl class="params"><dt>size</dt><dd>Number of elements</dd></dl>
+<pre># ARRAY — create an array
+5 ARRAY myArr =
+"first" myArr 0 <a href="#PUT">PUT</a></pre>
+</div>
+
+<div class="cmd-card" id="GET">
+<h4>GET <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Gets a value from an array by index, or from a hash by key.</p>
+<dl class="params"><dt>container</dt><dd>Array or hash</dd><dt>indexOrKey</dt><dd>Integer index or string key</dd></dl>
+<pre># GET — read from array or hash
+myArr 0 GET <a href="#SAY">SAY</a>
+myHash "name" GET <a href="#SAY">SAY</a></pre>
+</div>
+
+<div class="cmd-card" id="PUT">
+<h4>PUT <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Stores a value into an array at an index, or into a hash by key.</p>
+<dl class="params"><dt>value</dt><dd>The value to store</dd><dt>container</dt><dd>Array or hash</dd><dt>indexOrKey</dt><dd>Integer index or string key</dd></dl>
+<pre># PUT — write to array or hash
+"hello" myArr 0 PUT
+"Jamie" myHash "name" PUT</pre>
+</div>
+
+<div class="cmd-card" id="LENGTH">
+<h4>LENGTH <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Pushes the length of an array.</p>
+<pre># LENGTH — array length
+myArr LENGTH <a href="#SAY">SAY</a></pre>
+</div>
+
+<div class="cmd-card" id="NEWHASH">
+<h4>NEWHASH <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Creates a new empty hash (dictionary/object).</p>
+<pre># NEWHASH — create a hash
+NEWHASH myhash =
+"bar" myhash "foo" <a href="#PUT">PUT</a>
+myhash <a href="#HASHTOJSON">HASHTOJSON</a> <a href="#LOGMSG">LOGMSG</a>  ; {"foo":"bar"}</pre>
+</div>
+
+<div class="cmd-card" id="HASHTOJSON">
+<h4>HASHTOJSON <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Converts a hash to a JSON string.</p>
+<pre># HASHTOJSON — hash to JSON
+myhash HASHTOJSON <a href="#LOGMSG">LOGMSG</a></pre>
+</div>
+
+<div class="cmd-card" id="JSONTOHASH">
+<h4>JSONTOHASH <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Parses a JSON string into a hash element.</p>
+<pre># JSONTOHASH — JSON to hash
+"{\"name\":\"Jamie\"}" JSONTOHASH myhash =
+myhash "name" <a href="#GET">GET</a> <a href="#SAY">SAY</a>  ; says "Jamie"</pre>
+</div>
+
+<!-- Chat & Messages -->
+<h3 class="category-title" id="cmd-chat">Chat &amp; Messages</h3>
+
+<div class="cmd-card" id="SAY">
+<h4>SAY <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Sends a chat message visible to everyone in the room. Alias: CHAT.</p>
+<dl class="params"><dt>message</dt><dd>The string to say</dd></dl>
+<pre># SAY — send a chat message
+"Hello everyone!" SAY</pre>
+</div>
+
+<div class="cmd-card" id="LOCALMSG">
+<h4>LOCALMSG <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Displays a message locally only (only you see it).</p>
+<pre># LOCALMSG — local-only message
+"Only I can see this." LOCALMSG</pre>
+</div>
+
+<div class="cmd-card" id="LOGMSG">
+<h4>LOGMSG <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Writes a message to the log panel. Useful for debugging.</p>
+<pre># LOGMSG — write to log
+"Debug: x=" x &amp; LOGMSG</pre>
+</div>
+
+<div class="cmd-card" id="GLOBALMSG">
+<h4>GLOBALMSG <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Sends a message to all users on the server (requires operator privileges).</p>
+<pre># GLOBALMSG — server-wide message
+"Server shutting down in 5 minutes!" GLOBALMSG</pre>
+</div>
+
+<div class="cmd-card" id="ROOMMSG">
+<h4>ROOMMSG <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Sends a message to all users in the current room.</p>
+<pre># ROOMMSG — room-wide message
+"Welcome to the game room!" ROOMMSG</pre>
+</div>
+
+<div class="cmd-card" id="PRIVATEMSG">
+<h4>PRIVATEMSG <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Sends a private message (whisper) to a specific user.</p>
+<dl class="params"><dt>message</dt><dd>The message text</dd><dt>userId</dt><dd>Target user ID</dd></dl>
+<pre># PRIVATEMSG — whisper to user
+"Hey there!" <a href="#WHOCHAT">WHOCHAT</a> PRIVATEMSG</pre>
+</div>
+
+<div class="cmd-card" id="STATUSMSG">
+<h4>STATUSMSG <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Displays a message in the status bar.</p>
+<pre># STATUSMSG — status bar message
+"Connected!" STATUSMSG</pre>
+</div>
+
+<div class="cmd-card" id="SUSRMSG">
+<h4>SUSRMSG <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Sends a super-user message (requires operator privileges).</p>
+<pre># SUSRMSG — super user message
+"Admin notice" SUSRMSG</pre>
+</div>
+
+<!-- User & Movement -->
+<h3 class="category-title" id="cmd-user">User &amp; Movement</h3>
+
+<div class="cmd-card" id="ME">
+<h4>ME <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Pushes the current spot ID onto the stack. Alias: ID.</p>
+<pre># ME — current spot id
+ME <a href="#GETSPOTSTATE">GETSPOTSTATE</a> <a href="#LOGMSG">LOGMSG</a></pre>
+</div>
+
+<div class="cmd-card" id="USERNAME">
+<h4>USERNAME <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Pushes your username onto the stack.</p>
+<pre># USERNAME — get your name
+"Hi, I'm " USERNAME &amp; <a href="#SAY">SAY</a></pre>
+</div>
+
+<div class="cmd-card" id="USERID">
+<h4>USERID <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Pushes your user ID onto the stack.</p>
+<pre># USERID — get your id
+USERID <a href="#LOGMSG">LOGMSG</a></pre>
+</div>
+
+<div class="cmd-card" id="SETUSERNAME">
+<h4>SETUSERNAME <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Changes your displayed username (does not save to preferences).</p>
+<pre># SETUSERNAME — change name
+"NewName" SETUSERNAME</pre>
+</div>
+
+<div class="cmd-card" id="POSX">
+<h4>POSX <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Pushes your current X position.</p>
+<pre># POSX — your x position
+POSX <a href="#LOGMSG">LOGMSG</a></pre>
+</div>
+
+<div class="cmd-card" id="POSY">
+<h4>POSY <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Pushes your current Y position.</p>
+<pre># POSY — your y position
+POSY <a href="#LOGMSG">LOGMSG</a></pre>
+</div>
+
+<div class="cmd-card" id="SETPOS">
+<h4>SETPOS <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Moves you to a specific position.</p>
+<dl class="params"><dt>x</dt><dd>X coordinate</dd><dt>y</dt><dd>Y coordinate</dd></dl>
+<pre># SETPOS — teleport to position
+256 192 SETPOS</pre>
+</div>
+
+<div class="cmd-card" id="MOVE">
+<h4>MOVE <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Moves you relative to your current position.</p>
+<dl class="params"><dt>dx</dt><dd>X offset</dd><dt>dy</dt><dd>Y offset</dd></dl>
+<pre># MOVE — move relative
+10 0 MOVE  ; move 10 pixels right</pre>
+</div>
+
+<div class="cmd-card" id="MOUSEPOS">
+<h4>MOUSEPOS <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Pushes the current mouse X and Y coordinates onto the stack.</p>
+<pre># MOUSEPOS — get mouse position
+MOUSEPOS y = x =
+x "," &amp; y &amp; <a href="#LOGMSG">LOGMSG</a></pre>
+</div>
+
+<div class="cmd-card" id="WHONAME">
+<h4>WHONAME <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Gets the name of a user by their ID.</p>
+<dl class="params"><dt>userId</dt><dd>The user's ID</dd></dl>
+<pre># WHONAME — get user's name
+<a href="#WHOCHAT">WHOCHAT</a> WHONAME <a href="#SAY">SAY</a></pre>
+</div>
+
+<div class="cmd-card" id="WHOPOS">
+<h4>WHOPOS <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Gets the X and Y position of a user by their ID.</p>
+<pre># WHOPOS — get user's position
+<a href="#WHOCHAT">WHOCHAT</a> WHOPOS y = x =</pre>
+</div>
+
+<div class="cmd-card" id="WHOCHAT">
+<h4>WHOCHAT <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Pushes the ID of the user who sent the current chat message.</p>
+<pre># WHOCHAT — who's chatting
+WHOCHAT <a href="#WHONAME">WHONAME</a> " said something" &amp; <a href="#LOGMSG">LOGMSG</a></pre>
+</div>
+
+<div class="cmd-card" id="WHOME">
+<h4>WHOME <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Pushes your own user ID.</p>
+<pre># WHOME — your user id
+WHOME <a href="#WHONAME">WHONAME</a> <a href="#LOGMSG">LOGMSG</a></pre>
+</div>
+
+<div class="cmd-card" id="WHOTARGET">
+<h4>WHOTARGET <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Pushes the ID of the last clicked/targeted user.</p>
+<pre># WHOTARGET — targeted user id
+WHOTARGET <a href="#WHONAME">WHONAME</a> <a href="#LOGMSG">LOGMSG</a></pre>
+</div>
+
+<div class="cmd-card" id="WHOCOLOR">
+<h4>WHOCOLOR <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Gets the face color of a specified user.</p>
+<pre># WHOCOLOR — get user's color
+<a href="#USERID">USERID</a> WHOCOLOR <a href="#LOGMSG">LOGMSG</a></pre>
+</div>
+
+<div class="cmd-card" id="WHOFACE">
+<h4>WHOFACE <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Gets the face index of a specified user.</p>
+<pre># WHOFACE — get user's face
+<a href="#USERID">USERID</a> WHOFACE <a href="#LOGMSG">LOGMSG</a></pre>
+</div>
+
+<div class="cmd-card" id="SETCOLOR">
+<h4>SETCOLOR <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Sets your avatar color.</p>
+<pre># SETCOLOR — change color
+3 SETCOLOR</pre>
+</div>
+
+<div class="cmd-card" id="SETFACE">
+<h4>SETFACE <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Sets your avatar face.</p>
+<pre># SETFACE — change face
+5 SETFACE</pre>
+</div>
+
+<div class="cmd-card" id="CLIENTID">
+<h4>CLIENTID <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Pushes a number unique to the user.</p>
+<pre># CLIENTID — unique client id
+CLIENTID <a href="#LOGMSG">LOGMSG</a></pre>
+</div>
+
+<div class="cmd-card" id="CLIENTTYPE">
+<h4>CLIENTTYPE <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Pushes the client type identifier onto the stack.</p>
+<pre># CLIENTTYPE — client type
+CLIENTTYPE <a href="#LOGMSG">LOGMSG</a></pre>
+</div>
+
+<div class="cmd-card" id="ISGOD">
+<h4>ISGOD <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Pushes 1 if you are a god (owner), 0 otherwise.</p>
+<pre># ISGOD — check god status
+{ "You are a god!" <a href="#SAY">SAY</a> } ISGOD <a href="#IF">IF</a></pre>
+</div>
+
+<div class="cmd-card" id="ISWIZARD">
+<h4>ISWIZARD <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Pushes 1 if you are a wizard (operator), 0 otherwise.</p>
+<pre># ISWIZARD — check wizard status
+{ "You have operator powers!" <a href="#SAY">SAY</a> } ISWIZARD <a href="#IF">IF</a></pre>
+</div>
+
+<div class="cmd-card" id="ISGUEST">
+<h4>ISGUEST <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Pushes 1 if you are a guest, 0 otherwise.</p>
+<pre># ISGUEST — check guest status
+{ "You are a guest." <a href="#SAY">SAY</a> } ISGUEST <a href="#IF">IF</a></pre>
+</div>
+
+<div class="cmd-card" id="NBRROOMUSERS">
+<h4>NBRROOMUSERS <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Pushes the number of users in the current room.</p>
+<pre># NBRROOMUSERS — count room users
+NBRROOMUSERS " users in room" &amp; <a href="#LOGMSG">LOGMSG</a></pre>
+</div>
+
+<div class="cmd-card" id="NBRSERVERUSERS">
+<h4>NBRSERVERUSERS <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Pushes the number of users on the entire server.</p>
+<pre># NBRSERVERUSERS — count server users
+NBRSERVERUSERS " users online" &amp; <a href="#SAY">SAY</a></pre>
+</div>
+
+<div class="cmd-card" id="ROOMUSER">
+<h4>ROOMUSER <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Gets the user ID at a specific index in the room's user list.</p>
+<dl class="params"><dt>index</dt><dd>User index (0-based)</dd></dl>
+<pre># ROOMUSER — user by index
+0 ROOMUSER <a href="#WHONAME">WHONAME</a> <a href="#LOGMSG">LOGMSG</a></pre>
+</div>
+
+<div class="cmd-card" id="OPENPALACE">
+<h4>OPENPALACE <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Pushes 1 if the user is using OpenPalace, 0 otherwise.</p>
+<pre># OPENPALACE — detect OpenPalace
+{ "Using OpenPalace!" <a href="#SAY">SAY</a> } OPENPALACE <a href="#IF">IF</a></pre>
+</div>
+
+<div class="cmd-card" id="PALACECHAT">
+<h4>PALACECHAT <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Pushes the PalaceChat version number or 0 if not using PalaceChat.</p>
+<pre># PALACECHAT — detect PalaceChat
+{ "Using PalaceChat!" <a href="#SAY">SAY</a> } PALACECHAT <a href="#IF">IF</a></pre>
+</div>
+
+<div class="cmd-card" id="HIDEAVATARS">
+<h4>HIDEAVATARS <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Hides all avatars in the room (local only).</p>
+<pre># HIDEAVATARS — hide all avatars
+ON <a href="#ENTER">ENTER</a> { HIDEAVATARS }</pre>
+</div>
+
+<div class="cmd-card" id="SHOWAVATARS">
+<h4>SHOWAVATARS <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Shows all avatars after HIDEAVATARS was used.</p>
+<pre># SHOWAVATARS — show all avatars
+ON <a href="#ON_SELECT">SELECT</a> { SHOWAVATARS }</pre>
+</div>
+
+<div class="cmd-card" id="AUTOUSERLAYER">
+<h4>AUTOUSERLAYER <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Enables/disables automatic user layering based on vertical position.</p>
+<dl class="params"><dt>onOff</dt><dd>1 to enable, 0 to disable</dd></dl>
+<pre># AUTOUSERLAYER — auto-layer users
+ON <a href="#ROOMLOAD">ROOMLOAD</a> { 1 AUTOUSERLAYER }</pre>
+</div>
+
+<!-- Room & Spot -->
+<h3 class="category-title" id="cmd-room">Room &amp; Spot</h3>
+
+<div class="cmd-card" id="ROOMNAME">
+<h4>ROOMNAME <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Pushes the current room name.</p>
+<pre># ROOMNAME — get room name
+ROOMNAME <a href="#SAY">SAY</a></pre>
+</div>
+
+<div class="cmd-card" id="ROOMID">
+<h4>ROOMID <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Pushes the current room ID.</p>
+<pre># ROOMID — get room id
+ROOMID <a href="#LOGMSG">LOGMSG</a></pre>
+</div>
+
+<div class="cmd-card" id="SERVERNAME">
+<h4>SERVERNAME <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Pushes the server name.</p>
+<pre># SERVERNAME — get server name
+SERVERNAME <a href="#SAY">SAY</a></pre>
+</div>
+
+<div class="cmd-card" id="ROOMWIDTH">
+<h4>ROOMWIDTH <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Pushes the room background width (512 if not yet loaded).</p>
+<pre># ROOMWIDTH — room width
+ROOMWIDTH <a href="#RANDOM">RANDOM</a> <a href="#POSY">POSY</a> <a href="#SETPOS">SETPOS</a>  ; random x position</pre>
+</div>
+
+<div class="cmd-card" id="ROOMHEIGHT">
+<h4>ROOMHEIGHT <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Pushes the room background height (384 if not yet loaded).</p>
+<pre># ROOMHEIGHT — room height
+<a href="#POSX">POSX</a> ROOMHEIGHT <a href="#RANDOM">RANDOM</a> <a href="#SETPOS">SETPOS</a>  ; random y position</pre>
+</div>
+
+<div class="cmd-card" id="ROOMPICNAME">
+<h4>ROOMPICNAME <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Pushes the filename of the room's background image.</p>
+<pre># ROOMPICNAME — background filename
+ROOMPICNAME <a href="#SAY">SAY</a></pre>
+</div>
+
+<div class="cmd-card" id="GETROOMOPTIONS">
+<h4>GETROOMOPTIONS <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Pushes the room options bitmask. Use BITAND to check flags: 2=private, 32=hidden.</p>
+<pre># GETROOMOPTIONS — room option flags
+GETROOMOPTIONS rp =
+{ "Room is hidden!" <a href="#LOGMSG">LOGMSG</a> } rp 32 <a href="#BITAND">BITAND</a> <a href="#IF">IF</a></pre>
+</div>
+
+<div class="cmd-card" id="GOTOROOM">
+<h4>GOTOROOM <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Navigates to a room by its ID.</p>
+<pre># GOTOROOM — go to room by id
+86 GOTOROOM</pre>
+</div>
+
+<div class="cmd-card" id="NETGOTO">
+<h4>NETGOTO / GOTOURL <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Connects to a different Palace server.</p>
+<pre># NETGOTO — connect to server
+"palace://chat.palace.com:9998" NETGOTO</pre>
+</div>
+
+<div class="cmd-card" id="MEDIAADDRESS">
+<h4>MEDIAADDRESS <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Pushes the HTTP address of the current server's media directory.</p>
+<pre># MEDIAADDRESS — media server URL
+MEDIAADDRESS <a href="#LOGMSG">LOGMSG</a></pre>
+</div>
+
+<div class="cmd-card" id="NBRSPOTS">
+<h4>NBRSPOTS / NBRDOORS <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Pushes the number of spots in the room.</p>
+<pre># NBRSPOTS — count spots
+NBRSPOTS " spots in room" &amp; <a href="#LOGMSG">LOGMSG</a></pre>
+</div>
+
+<div class="cmd-card" id="SPOTIDX">
+<h4>SPOTIDX <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Gets the spot ID at a specific index.</p>
+<pre># SPOTIDX — spot id by index
+0 SPOTIDX s =</pre>
+</div>
+
+<div class="cmd-card" id="SPOTNAME">
+<h4>SPOTNAME <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Pushes the name of the current spot.</p>
+<pre># SPOTNAME — get spot name
+SPOTNAME <a href="#SAY">SAY</a></pre>
+</div>
+
+<div class="cmd-card" id="INSPOT">
+<h4>INSPOT <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Checks if a user is within a specific spot.</p>
+<pre># INSPOT — check if in spot
+{ "User is in this spot!" <a href="#SAY">SAY</a> } <a href="#USERID">USERID</a> <a href="#ME">ME</a> INSPOT <a href="#IF">IF</a></pre>
+</div>
+
+<div class="cmd-card" id="LOCINSPOT">
+<h4>LOCINSPOT <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Checks whether X,Y coordinates are within a spot.</p>
+<dl class="params"><dt>x</dt><dd>X coordinate</dd><dt>y</dt><dd>Y coordinate</dd><dt>spotId</dt><dd>Spot to check</dd></dl>
+<pre># LOCINSPOT — point-in-spot test
+{ "I'm in the spot!" <a href="#SAY">SAY</a> } <a href="#POSX">POSX</a> <a href="#POSY">POSY</a> <a href="#ME">ME</a> LOCINSPOT <a href="#IF">IF</a></pre>
+</div>
+
+<div class="cmd-card" id="GETSPOTSTATE">
+<h4>GETSPOTSTATE <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Pushes the current state of a spot.</p>
+<pre># GETSPOTSTATE — get spot state
+<a href="#ME">ME</a> GETSPOTSTATE <a href="#LOGMSG">LOGMSG</a></pre>
+</div>
+
+<div class="cmd-card" id="SETSPOTSTATE">
+<h4>SETSPOTSTATE <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Changes the state of a spot (server-wide).</p>
+<pre># SETSPOTSTATE — change spot state
+1 <a href="#ME">ME</a> SETSPOTSTATE</pre>
+</div>
+
+<div class="cmd-card" id="SETSPOTSTATELOCAL">
+<h4>SETSPOTSTATELOCAL <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Changes the state of a spot locally only.</p>
+<pre># SETSPOTSTATELOCAL — local state change
+1 <a href="#ME">ME</a> SETSPOTSTATELOCAL</pre>
+</div>
+
+<div class="cmd-card" id="GETSPOTLOC">
+<h4>GETSPOTLOC <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Pushes the X and Y location of a spot.</p>
+<pre># GETSPOTLOC — spot location
+<a href="#ME">ME</a> GETSPOTLOC y = x =</pre>
+</div>
+
+<div class="cmd-card" id="SETLOCLOCAL">
+<h4>SETLOCLOCAL <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Sets a spot's position locally (not saved to server).</p>
+<dl class="params"><dt>x</dt><dd>X position</dd><dt>y</dt><dd>Y position</dd><dt>spotId</dt><dd>Spot to move</dd></dl>
+<pre># SETLOCLOCAL — move spot locally
+20 40 <a href="#ME">ME</a> SETLOCLOCAL</pre>
+</div>
+
+<div class="cmd-card" id="SETLOC">
+<h4>SETLOC <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Sets a spot's position on the server.</p>
+<pre># SETLOC — move spot (server)
+100 200 <a href="#ME">ME</a> SETLOC</pre>
+</div>
+
+<div class="cmd-card" id="LOCK">
+<h4>LOCK <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Locks a door/spot.</p>
+<pre># LOCK — lock a door
+<a href="#ME">ME</a> LOCK</pre>
+</div>
+
+<div class="cmd-card" id="UNLOCK">
+<h4>UNLOCK <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Unlocks a door/spot.</p>
+<pre># UNLOCK — unlock a door
+<a href="#ME">ME</a> UNLOCK</pre>
+</div>
+
+<div class="cmd-card" id="ISLOCKED">
+<h4>ISLOCKED <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Checks if a spot is locked.</p>
+<pre># ISLOCKED — check if locked
+{ "Door is locked!" <a href="#SAY">SAY</a> } <a href="#ME">ME</a> ISLOCKED <a href="#IF">IF</a></pre>
+</div>
+
+<div class="cmd-card" id="DEST">
+<h4>DEST <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Pushes the destination room ID for a passage spot.</p>
+<pre># DEST — passage destination
+<a href="#ME">ME</a> DEST <a href="#LOGMSG">LOGMSG</a></pre>
+</div>
+
+<div class="cmd-card" id="SPOTDEST">
+<h4>SPOTDEST <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Gets the destination of a specific spot.</p>
+<pre># SPOTDEST — get spot destination
+<a href="#ME">ME</a> SPOTDEST <a href="#LOGMSG">LOGMSG</a></pre>
+</div>
+
+<div class="cmd-card" id="SELECT">
+<h4>SELECT <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Triggers the current spot's SELECT event.</p>
+<pre># SELECT — trigger spot click
+SELECT</pre>
+</div>
+
+<div class="cmd-card" id="DOORIDX">
+<h4>DOORIDX <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Gets the spot index by ID.</p>
+<pre># DOORIDX — spot index by id
+<a href="#ME">ME</a> DOORIDX <a href="#LOGMSG">LOGMSG</a></pre>
+</div>
+
+<div class="cmd-card" id="ADDSPOT">
+<h4>ADDSPOT <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Adds a new spot to the room locally, returning its ID.</p>
+<dl class="params"><dt>pointsArray</dt><dd>Array of x,y points relative to spot location</dd><dt>x</dt><dd>X position</dd><dt>y</dt><dd>Y position</dd></dl>
+<pre># ADDSPOT — create a spot
+[65 -65 65 65 -65 65 -65 -65] 200 200 ADDSPOT spotid =</pre>
+</div>
+
+<div class="cmd-card" id="REMOVESPOT">
+<h4>REMOVESPOT <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Removes a spot created with ADDSPOT.</p>
+<pre># REMOVESPOT — remove a spot
+spotid REMOVESPOT</pre>
+</div>
+
+<div class="cmd-card" id="GETSPOTOPTIONS">
+<h4>GETSPOTOPTIONS <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Pushes three values: spot type, layer, and options bitmask.</p>
+<pre># GETSPOTOPTIONS — get spot config
+<a href="#ME">ME</a> GETSPOTOPTIONS spotType = spotLayer = spotOptions =</pre>
+</div>
+
+<div class="cmd-card" id="SETSPOTOPTIONS">
+<h4>SETSPOTOPTIONS <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Sets spot options, layer, and type. Options: 2=Don't Move Here, 8=Show Name, 16=Show Frame, 32=Shadow. Layers: 0-3. Types: 0=Normal, 1=Passage, 2=Shutable, 3=Lockable, 4=DeadBolt, 5=NavArea.</p>
+<pre># SETSPOTOPTIONS — configure spot
+16 2 + 0 1 <a href="#ME">ME</a> SETSPOTOPTIONS  ; Show Frame + Don't Move, layer 0, passage</pre>
+</div>
+
+<div class="cmd-card" id="GETSPOTPOINTS">
+<h4>GETSPOTPOINTS <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Pushes an array of x,y values representing the spot's polygon points.</p>
+<pre># GETSPOTPOINTS — get spot shape
+<a href="#ME">ME</a> GETSPOTPOINTS pts =
+{ <a href="#LOGMSG">LOGMSG</a> } pts <a href="#FOREACH">FOREACH</a></pre>
+</div>
+
+<div class="cmd-card" id="SETSPOTPOINTS">
+<h4>SETSPOTPOINTS <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Sets the points (shape) of a spot.</p>
+<pre># SETSPOTPOINTS — reshape spot
+[15 -15 15 15 -15 15 -15 -15] <a href="#ME">ME</a> <a href="#GETSPOTLOC">GETSPOTLOC</a> <a href="#ME">ME</a> SETSPOTPOINTS</pre>
+</div>
+
+<div class="cmd-card" id="SETSPOTSCRIPT">
+<h4>SETSPOTSCRIPT <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Sets a script event handler for a spot.</p>
+<pre># SETSPOTSCRIPT — set event handler
+{"Clicked!" <a href="#SAY">SAY</a>} "SELECT" spotid SETSPOTSCRIPT</pre>
+</div>
+
+<div class="cmd-card" id="SETSPOTNAMELOCAL">
+<h4>SETSPOTNAMELOCAL <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Locally changes a spot's displayed name. Set to "" to hide.</p>
+<pre># SETSPOTNAMELOCAL — change spot name locally
+"Score: " SCORE &amp; 15 SETSPOTNAMELOCAL</pre>
+</div>
+
+<div class="cmd-card" id="SETSPOTSTYLE">
+<h4>SETSPOTSTYLE <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Sets background color, border color, and border size. Colors use ARGB hex strings like "&amp;hCC0000FF".</p>
+<pre># SETSPOTSTYLE — style a spot
+"&amp;hCC0000FF" "&amp;hFFFF0000" 2 <a href="#ME">ME</a> SETSPOTSTYLE</pre>
+</div>
+
+<div class="cmd-card" id="SETSPOTCURVE">
+<h4>SETSPOTCURVE <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Sets spot border curve tension. 100 on a square makes a circle.</p>
+<pre># SETSPOTCURVE — round a spot
+100 <a href="#ME">ME</a> SETSPOTCURVE</pre>
+</div>
+
+<div class="cmd-card" id="SETSPOTCLIP">
+<h4>SETSPOTCLIP <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Sets clipping mode: 0=none, 1=clip inside, 2=exclude others, -1/-2=opposite.</p>
+<pre># SETSPOTCLIP — clip spot content
+1 <a href="#ME">ME</a> SETSPOTCLIP</pre>
+</div>
+
+<div class="cmd-card" id="SETSPOTPICMODE">
+<h4>SETSPOTPICMODE <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Sets how pictures appear: 0=centered, 1=top-left, 2=stretch, 3=HQ stretch, 4=fit, 5=HQ fit.</p>
+<pre># SETSPOTPICMODE — picture display mode
+5 <a href="#ME">ME</a> SETSPOTPICMODE  ; HQ fit to spot</pre>
+</div>
+
+<div class="cmd-card" id="SETSPOTFONT">
+<h4>SETSPOTFONT <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Sets font styling for the spot's name text. Pass "" as font name to disable.</p>
+<dl class="params"><dt>spotId</dt><dd>Spot ID</dd><dt>fontName</dt><dd>Font name string</dd><dt>fontColor</dt><dd>32-bit ARGB color</dd><dt>fontPadding</dt><dd>Padding amount</dd><dt>fontSize</dt><dd>Font size</dd><dt>fontCenter</dt><dd>0 or 1</dd><dt>fontItalic</dt><dd>0 or 1</dd><dt>fontUnderline</dt><dd>0 or 1</dd><dt>fontStrikeout</dt><dd>0 or 1</dd><dt>fontBold</dt><dd>0 or 1</dd></dl>
+<pre># SETSPOTFONT — style spot text
+1 0 0 1 1 20 25 "&amp;hEEFF0000" "Arial" <a href="#ME">ME</a> SETSPOTFONT</pre>
+</div>
+
+<div class="cmd-card" id="GETSPOTTEXTSIZE">
+<h4>GETSPOTTEXTSIZE <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Gets the rendered text dimensions for a spot's name.</p>
+<pre># GETSPOTTEXTSIZE — measure text
+250 <a href="#ROOMHEIGHT">ROOMHEIGHT</a> <a href="#ME">ME</a> GETSPOTTEXTSIZE h = w = y = x =</pre>
+</div>
+
+<div class="cmd-card" id="GETBUBBLESTYLE">
+<h4>GETBUBBLESTYLE <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Gets the user's current bubble font settings.</p>
+<pre># GETBUBBLESTYLE — read bubble settings
+GETBUBBLESTYLE fontName = fontSize = fontCenter = fontBold =</pre>
+</div>
+
+<div class="cmd-card" id="CACHESCRIPT">
+<h4>CACHESCRIPT <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Creates a persistent event script that survives room changes (until disconnect). Room scripts only.</p>
+<pre># CACHESCRIPT — persistent event
+{ <a href="#ROOMNAME">ROOMNAME</a> <a href="#SAY">SAY</a> } "ENTER" CACHESCRIPT</pre>
+</div>
+
+<div class="cmd-card" id="ISRIGHTCLICK">
+<h4>ISRIGHTCLICK <span class="badge badge-ext">extended</span></h4>
+<p class="desc">In a SELECT event, checks if the click was a right-click.</p>
+<pre># ISRIGHTCLICK — detect right click
+ON <a href="#ON_SELECT">SELECT</a> {
+    { "Right!" <a href="#SAY">SAY</a> } { "Left!" <a href="#SAY">SAY</a> } ISRIGHTCLICK <a href="#IFELSE">IFELSE</a>
+}</pre>
+</div>
+
+<!-- Picture Manipulation -->
+<h3 class="category-title" id="cmd-pic">Picture Manipulation</h3>
+
+<div class="cmd-card" id="ADDPIC">
+<h4>ADDPIC <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Adds a picture to a spot, downloading if necessary.</p>
+<dl class="params"><dt>fileName</dt><dd>File name or HTTP URL</dd><dt>spotId</dt><dd>Target spot</dd></dl>
+<pre># ADDPIC — add picture to spot
+"awesome.png" <a href="#ME">ME</a> ADDPIC</pre>
+</div>
+
+<div class="cmd-card" id="ADDPICNAME">
+<h4>ADDPICNAME <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Like ADDPIC but specifies the cache filename.</p>
+<pre># ADDPICNAME — add pic with cache name
+"http://example.com/pic.png" "cached.png" <a href="#ME">ME</a> ADDPICNAME</pre>
+</div>
+
+<div class="cmd-card" id="INSERTPIC">
+<h4>INSERTPIC <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Inserts a picture at a specific state index.</p>
+<pre># INSERTPIC — insert pic at index
+"awesome.png" 0 <a href="#ME">ME</a> INSERTPIC</pre>
+</div>
+
+<div class="cmd-card" id="REMOVEPIC">
+<h4>REMOVEPIC <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Removes a picture from a spot's state. Also frees the image from RAM.</p>
+<pre># REMOVEPIC — remove pic from spot
+0 <a href="#ME">ME</a> REMOVEPIC</pre>
+</div>
+
+<div class="cmd-card" id="NBRROOMPICS">
+<h4>NBRROOMPICS <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Pushes the number of pictures in the room.</p>
+<pre># NBRROOMPICS — count room pics
+NBRROOMPICS <a href="#LOGMSG">LOGMSG</a></pre>
+</div>
+
+<div class="cmd-card" id="GETPICNAME">
+<h4>GETPICNAME <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Gets the filename of a picture at a given state in a spot.</p>
+<pre># GETPICNAME — pic filename
+-1 <a href="#ME">ME</a> GETPICNAME <a href="#SAY">SAY</a>  ; current state pic name</pre>
+</div>
+
+<div class="cmd-card" id="GETPICDIMENSIONS">
+<h4>GETPICDIMENSIONS <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Pushes width and height of a spot's picture.</p>
+<pre># GETPICDIMENSIONS — pic size
+-1 <a href="#ME">ME</a> GETPICDIMENSIONS height = width =</pre>
+</div>
+
+<div class="cmd-card" id="GETPICLOC">
+<h4>GETPICLOC <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Pushes X,Y of a picture relative to its spot.</p>
+<pre># GETPICLOC — pic position
+-1 <a href="#ME">ME</a> GETPICLOC y = x =</pre>
+</div>
+
+<div class="cmd-card" id="SETPICLOCLOCAL">
+<h4>SETPICLOCLOCAL <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Moves a picture within its spot (relative coords, local only).</p>
+<pre># SETPICLOCLOCAL — move pic locally
+20 40 -1 <a href="#ME">ME</a> SETPICLOCLOCAL</pre>
+</div>
+
+<div class="cmd-card" id="SETPICANGLE">
+<h4>SETPICANGLE <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Rotates a picture in a spot (0-360 degrees).</p>
+<pre># SETPICANGLE — rotate picture
+45 -1 <a href="#ME">ME</a> SETPICANGLE</pre>
+</div>
+
+<div class="cmd-card" id="GETPICANGLE">
+<h4>GETPICANGLE <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Gets the rotation angle of a picture.</p>
+<pre># GETPICANGLE — get rotation
+-1 <a href="#ME">ME</a> GETPICANGLE <a href="#LOGMSG">LOGMSG</a></pre>
+</div>
+
+<div class="cmd-card" id="SETPICBRIGHTNESS">
+<h4>SETPICBRIGHTNESS <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Sets picture brightness (-100 to 100, default 0).</p>
+<pre># SETPICBRIGHTNESS — brighten picture
+50 -1 <a href="#ME">ME</a> SETPICBRIGHTNESS</pre>
+</div>
+
+<div class="cmd-card" id="GETPICBRIGHTNESS">
+<h4>GETPICBRIGHTNESS <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Gets the brightness value of a picture.</p>
+<pre># GETPICBRIGHTNESS — read brightness
+-1 <a href="#ME">ME</a> GETPICBRIGHTNESS <a href="#LOGMSG">LOGMSG</a></pre>
+</div>
+
+<div class="cmd-card" id="SETPICOPACITY">
+<h4>SETPICOPACITY <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Sets picture opacity (0-100, default 100).</p>
+<pre># SETPICOPACITY — half-transparent pic
+50 -1 <a href="#ME">ME</a> SETPICOPACITY</pre>
+</div>
+
+<div class="cmd-card" id="GETPICOPACITY">
+<h4>GETPICOPACITY <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Gets the opacity value of a picture.</p>
+<pre># GETPICOPACITY — read opacity
+-1 <a href="#ME">ME</a> GETPICOPACITY <a href="#LOGMSG">LOGMSG</a></pre>
+</div>
+
+<div class="cmd-card" id="SETPICSATURATION">
+<h4>SETPICSATURATION <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Sets color saturation (-10000 to 10000, default 100). 0 = greyscale.</p>
+<pre># SETPICSATURATION — greyscale picture
+0 -1 <a href="#ME">ME</a> SETPICSATURATION</pre>
+</div>
+
+<div class="cmd-card" id="GETPICSATURATION">
+<h4>GETPICSATURATION <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Gets the saturation value of a picture.</p>
+<pre># GETPICSATURATION — read saturation
+-1 <a href="#ME">ME</a> GETPICSATURATION <a href="#LOGMSG">LOGMSG</a></pre>
+</div>
+
+<div class="cmd-card" id="SETPICHUE">
+<h4>SETPICHUE <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Shifts picture hue (-180 to 180, default 0).</p>
+<pre># SETPICHUE — shift hue
+100 -1 <a href="#ME">ME</a> SETPICHUE</pre>
+</div>
+
+<div class="cmd-card" id="SETPICCONTRAST">
+<h4>SETPICCONTRAST <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Sets picture contrast (-100 to 1000, default 0).</p>
+<pre># SETPICCONTRAST — adjust contrast
+-50 -1 <a href="#ME">ME</a> SETPICCONTRAST</pre>
+</div>
+
+<div class="cmd-card" id="SETPICBLUR">
+<h4>SETPICBLUR <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Sets blur radius (0-2500, default 0).</p>
+<pre># SETPICBLUR — blur picture
+50 -1 <a href="#ME">ME</a> SETPICBLUR</pre>
+</div>
+
+<div class="cmd-card" id="SETPICFRAME">
+<h4>SETPICFRAME <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Sets the current frame of an animated GIF.</p>
+<pre># SETPICFRAME — set GIF frame
+0 -1 <a href="#ME">ME</a> SETPICFRAME</pre>
+</div>
+
+<div class="cmd-card" id="NBRPICFRAMES">
+<h4>NBRPICFRAMES <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Gets the number of frames in a GIF animation.</p>
+<pre># NBRPICFRAMES — count GIF frames
+-1 <a href="#ME">ME</a> NBRPICFRAMES <a href="#LOGMSG">LOGMSG</a></pre>
+</div>
+
+<div class="cmd-card" id="PAUSEPIC">
+<h4>PAUSEPIC <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Pauses a GIF animation.</p>
+<pre># PAUSEPIC — pause animation
+-1 <a href="#ME">ME</a> PAUSEPIC</pre>
+</div>
+
+<div class="cmd-card" id="RESUMEPIC">
+<h4>RESUMEPIC <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Resumes a GIF animation after PAUSEPIC.</p>
+<pre># RESUMEPIC — resume animation
+-1 <a href="#ME">ME</a> RESUMEPIC</pre>
+</div>
+
+<div class="cmd-card" id="GETPICPIXEL">
+<h4>GETPICPIXEL <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Returns the 32-bit ABGR pixel value at given room coordinates in a spot's picture.</p>
+<pre># GETPICPIXEL — sample pixel color
+<a href="#MOUSEPOS">MOUSEPOS</a> -1 <a href="#ME">ME</a> GETPICPIXEL pixel =
+pixel 24 <a href="#BITSHIFTRIGHT">BITSHIFTRIGHT</a> alpha =  ; extract alpha channel</pre>
+</div>
+
+<div class="cmd-card" id="FILEEXISTS">
+<h4>FILEEXISTS <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Checks if a file exists in the local server media directory.</p>
+<pre># FILEEXISTS — check for media file
+{ "File found!" <a href="#SAY">SAY</a> } "clouds.gif" FILEEXISTS <a href="#IF">IF</a></pre>
+</div>
+
+<div class="cmd-card" id="FILEDATE">
+<h4>FILEDATE <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Gets the last modified date/time of a file in the media directory.</p>
+<pre># FILEDATE — file modification date
+"clouds.gif" FILEDATE <a href="#SAY">SAY</a></pre>
+</div>
+
+<div class="cmd-card" id="FILEDELETE">
+<h4>FILEDELETE <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Deletes a file from the local server media directory.</p>
+<pre># FILEDELETE — delete media file
+"old-image.jpg" FILEDELETE</pre>
+</div>
+
+<div class="cmd-card" id="IMAGETOMEDIA">
+<h4>IMAGETOMEDIA <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Saves image data to the media folder. Usually used in HTTPRECEIVED. Set CONTENTS to "" after to prevent double-save.</p>
+<pre># IMAGETOMEDIA — save image to media
+ON <a href="#HTTPRECEIVED">HTTPRECEIVED</a> {
+    { "myimage.png" CONTENTS IMAGETOMEDIA  "" CONTENTS = } TYPE "image/png" <a href="#REGEXP">REGEXP</a> <a href="#IF">IF</a>
+}</pre>
+</div>
+
+<!-- Drawing -->
+<h3 class="category-title" id="cmd-drawing">Drawing Commands</h3>
+
+<div class="cmd-card" id="LINE">
+<h4>LINE <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Draws a line between two points.</p>
+<pre># LINE — draw a line
+255 0 0 <a href="#PENCOLOR">PENCOLOR</a> 3 <a href="#PENSIZE">PENSIZE</a>
+0 0 <a href="#ROOMWIDTH">ROOMWIDTH</a> <a href="#ROOMHEIGHT">ROOMHEIGHT</a> LINE</pre>
+</div>
+
+<div class="cmd-card" id="LINETO">
+<h4>LINETO <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Draws a line from the current pen position to a point.</p>
+<pre># LINETO — draw line from pen position
+100 100 LINETO</pre>
+</div>
+
+<div class="cmd-card" id="OVAL">
+<h4>OVAL <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Draws an oval with current pen and fill settings.</p>
+<dl class="params"><dt>x</dt><dd>Center X</dd><dt>y</dt><dd>Center Y</dd><dt>width</dt><dd>Oval width</dd><dt>height</dt><dd>Oval height</dd></dl>
+<pre># OVAL — draw an oval
+127 <a href="#PENFILLOPACITY">PENFILLOPACITY</a>
+0 255 0 <a href="#PENFILLCOLOR">PENFILLCOLOR</a>
+255 0 0 <a href="#PENCOLOR">PENCOLOR</a>  3 <a href="#PENSIZE">PENSIZE</a>
+256 192 200 150 OVAL</pre>
+</div>
+
+<div class="cmd-card" id="POLYGON">
+<h4>POLYGON <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Draws a polygon from an array of x,y points. Filled if PENFILLOPACITY &gt; 0.</p>
+<pre># POLYGON — draw filled shape
+180 <a href="#PENFILLOPACITY">PENFILLOPACITY</a>
+255 <a href="#RANDOM">RANDOM</a> 255 <a href="#RANDOM">RANDOM</a> 255 <a href="#RANDOM">RANDOM</a> <a href="#PENCOLOR">PENCOLOR</a>
+<a href="#ROOMWIDTH">ROOMWIDTH</a> x = <a href="#ROOMHEIGHT">ROOMHEIGHT</a> y =
+[0 0 0 y x y x 0] POLYGON</pre>
+</div>
+
+<div class="cmd-card" id="DRAWTEXT">
+<h4>DRAWTEXT <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Draws text at a position using the current pen font and color.</p>
+<pre># DRAWTEXT — draw text on room
+"Arial" <a href="#PENFONT">PENFONT</a>  <a href="#PENFRONT">PENFRONT</a>  255 0 0 <a href="#PENCOLOR">PENCOLOR</a>  255 <a href="#PENOPACITY">PENOPACITY</a>  18 <a href="#PENSIZE">PENSIZE</a>
+"Hello World" 10 10 DRAWTEXT</pre>
+</div>
+
+<div class="cmd-card" id="PENCOLOR">
+<h4>PENCOLOR <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Sets the drawing color (R, G, B values 0-255).</p>
+<pre># PENCOLOR — set draw color
+255 0 0 PENCOLOR  ; red</pre>
+</div>
+
+<div class="cmd-card" id="PENSIZE">
+<h4>PENSIZE <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Sets the line/text size.</p>
+<pre># PENSIZE — set line width
+3 PENSIZE</pre>
+</div>
+
+<div class="cmd-card" id="PENFRONT">
+<h4>PENFRONT <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Sets drawing to appear in front of everything.</p>
+<pre># PENFRONT — draw in front
+PENFRONT</pre>
+</div>
+
+<div class="cmd-card" id="PENBACK">
+<h4>PENBACK <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Sets drawing to appear behind everything.</p>
+<pre># PENBACK — draw behind
+PENBACK</pre>
+</div>
+
+<div class="cmd-card" id="PENPOS">
+<h4>PENPOS <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Sets the current pen position for PENTO/LINETO.</p>
+<pre># PENPOS — set pen position
+50 50 PENPOS</pre>
+</div>
+
+<div class="cmd-card" id="PENTO">
+<h4>PENTO <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Moves pen without drawing.</p>
+<pre># PENTO — move pen
+100 100 PENTO</pre>
+</div>
+
+<div class="cmd-card" id="PENOPACITY">
+<h4>PENOPACITY <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Sets line/text opacity (0-255). Reset to 255 when done!</p>
+<pre># PENOPACITY — semi-transparent drawing
+127 PENOPACITY
+; draw stuff...
+255 PENOPACITY  ; reset!</pre>
+</div>
+
+<div class="cmd-card" id="PENFILLCOLOR">
+<h4>PENFILLCOLOR <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Sets fill color for polygons and ovals (R, G, B).</p>
+<pre># PENFILLCOLOR — set fill color
+0 255 0 PENFILLCOLOR  ; green fill</pre>
+</div>
+
+<div class="cmd-card" id="PENFILLOPACITY">
+<h4>PENFILLOPACITY <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Sets fill opacity (0-255). 0 = no fill (default).</p>
+<pre># PENFILLOPACITY — enable fills
+180 PENFILLOPACITY</pre>
+</div>
+
+<div class="cmd-card" id="PENFONT">
+<h4>PENFONT <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Sets the font for DRAWTEXT.</p>
+<pre># PENFONT — set drawing font
+"Arial" PENFONT</pre>
+</div>
+
+<div class="cmd-card" id="PENBOLD">
+<h4>PENBOLD <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Toggles bold for DRAWTEXT (0=off, 1=on).</p>
+<pre># PENBOLD — bold text
+1 PENBOLD</pre>
+</div>
+
+<div class="cmd-card" id="PENITALIC">
+<h4>PENITALIC <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Toggles italic for DRAWTEXT.</p>
+<pre># PENITALIC — italic text
+1 PENITALIC</pre>
+</div>
+
+<div class="cmd-card" id="PENUNDERLINE">
+<h4>PENUNDERLINE <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Toggles underline for DRAWTEXT.</p>
+<pre># PENUNDERLINE — underlined text
+1 PENUNDERLINE</pre>
+</div>
+
+<div class="cmd-card" id="PAINTCLEAR">
+<h4>PAINTCLEAR <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Clears all paint from the room.</p>
+<pre># PAINTCLEAR — clear room paint
+PAINTCLEAR</pre>
+</div>
+
+<div class="cmd-card" id="PAINTUNDO">
+<h4>PAINTUNDO <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Undoes the last paint command.</p>
+<pre># PAINTUNDO — undo last paint
+PAINTUNDO</pre>
+</div>
+
+<div class="cmd-card" id="SHOWPAINT">
+<h4>SHOWPAINT <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Generates scripting based on paint currently drawn in the room.</p>
+<pre># SHOWPAINT — get paint as script
+SHOWPAINT</pre>
+</div>
+
+<div class="cmd-card" id="UPDATELATER">
+<h4>UPDATELATER <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Defers all drawing operations until the script ends. Changes appear all at once.</p>
+<pre># UPDATELATER — batch visual changes
+UPDATELATER
+; make many changes...
+<a href="#UPDATENOW">UPDATENOW</a></pre>
+</div>
+
+<div class="cmd-card" id="UPDATENOW">
+<h4>UPDATENOW <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Forces immediate drawing update after UPDATELATER.</p>
+<pre># UPDATENOW — flush deferred drawing
+UPDATENOW</pre>
+</div>
+
+<!-- Props -->
+<h3 class="category-title" id="cmd-prop">Props</h3>
+
+<div class="cmd-card" id="DONPROP">
+<h4>DONPROP <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Puts on (wears) a prop by its ID.</p>
+<pre># DONPROP — wear a prop
+48329285 DONPROP</pre>
+</div>
+
+<div class="cmd-card" id="DOFFPROP">
+<h4>DOFFPROP <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Takes off a prop by its ID.</p>
+<pre># DOFFPROP — remove a prop
+48329285 DOFFPROP</pre>
+</div>
+
+<div class="cmd-card" id="DROPPROP">
+<h4>DROPPROP <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Drops a prop as a loose prop.</p>
+<pre># DROPPROP — drop prop in room
+48329285 DROPPROP</pre>
+</div>
+
+<div class="cmd-card" id="NAKED">
+<h4>NAKED / CLEARPROPS <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Removes all props you're wearing.</p>
+<pre># NAKED — remove all props
+NAKED</pre>
+</div>
+
+<div class="cmd-card" id="SETPROPS">
+<h4>SETPROPS <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Sets your prop list to a specific set of props.</p>
+<pre># SETPROPS — set worn props
+[48329285 394829] SETPROPS</pre>
+</div>
+
+<div class="cmd-card" id="TOPPROP">
+<h4>TOPPROP <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Pushes the prop ID of your top-most worn prop.</p>
+<pre># TOPPROP — get top prop
+TOPPROP <a href="#LOGMSG">LOGMSG</a></pre>
+</div>
+
+<div class="cmd-card" id="HASPROP">
+<h4>HASPROP <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Checks if you're wearing a specific prop.</p>
+<pre># HASPROP — check for worn prop
+{ "Wearing it!" <a href="#SAY">SAY</a> } 48329285 HASPROP <a href="#IF">IF</a></pre>
+</div>
+
+<div class="cmd-card" id="REMOVEPROP">
+<h4>REMOVEPROP <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Removes a specific prop from your worn props.</p>
+<pre># REMOVEPROP — remove specific prop
+48329285 REMOVEPROP</pre>
+</div>
+
+<div class="cmd-card" id="USERPROP">
+<h4>USERPROP <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Gets a specific prop from a user's prop list.</p>
+<pre># USERPROP — user's prop by index
+0 <a href="#USERID">USERID</a> USERPROP <a href="#LOGMSG">LOGMSG</a></pre>
+</div>
+
+<div class="cmd-card" id="NBRUSERPROPS">
+<h4>NBRUSERPROPS <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Pushes the number of props a user is wearing.</p>
+<pre># NBRUSERPROPS — count worn props
+<a href="#USERID">USERID</a> NBRUSERPROPS <a href="#LOGMSG">LOGMSG</a></pre>
+</div>
+
+<div class="cmd-card" id="IMAGETOPROP">
+<h4>IMAGETOPROP <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Imports an image from the media folder as a prop. Room scripts only.</p>
+<pre># IMAGETOPROP — import image as prop
+"cool.png" IMAGETOPROP</pre>
+</div>
+
+<div class="cmd-card" id="LOADPROPS">
+<h4>LOADPROPS <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Pre-loads props in the background. Max 500 at a time.</p>
+<pre># LOADPROPS — preload props
+[48329285 394829 -195839523] LOADPROPS</pre>
+</div>
+
+<div class="cmd-card" id="PROPDIMENSIONS">
+<h4>PROPDIMENSIONS <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Pushes width and height of a prop.</p>
+<pre># PROPDIMENSIONS — prop size
+60035 PROPDIMENSIONS height = width =
+width "x" &amp; height &amp; <a href="#LOGMSG">LOGMSG</a></pre>
+</div>
+
+<div class="cmd-card" id="PROPOFFSETS">
+<h4>PROPOFFSETS <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Pushes the x,y offsets of a prop relative to user position.</p>
+<pre># PROPOFFSETS — prop position offset
+60035 PROPOFFSETS offy = offx =</pre>
+</div>
+
+<div class="cmd-card" id="WHEREPROP">
+<h4>WHEREPROP <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Gets position information for a prop.</p>
+<pre># WHEREPROP — find prop position
+60035 WHEREPROP</pre>
+</div>
+
+<div class="cmd-card" id="ADDLOOSEPROP">
+<h4>ADDLOOSEPROP <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Adds a loose prop to the room at a position.</p>
+<dl class="params"><dt>propId</dt><dd>The prop ID</dd><dt>x</dt><dd>X position</dd><dt>y</dt><dd>Y position</dd></dl>
+<pre># ADDLOOSEPROP — place loose prop
+60035 200 150 ADDLOOSEPROP</pre>
+</div>
+
+<div class="cmd-card" id="REMOVELOOSEPROP">
+<h4>REMOVELOOSEPROP <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Removes a loose prop by index.</p>
+<pre># REMOVELOOSEPROP — remove loose prop
+0 REMOVELOOSEPROP</pre>
+</div>
+
+<div class="cmd-card" id="MOVELOOSEPROP">
+<h4>MOVELOOSEPROP <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Moves a loose prop to a new position.</p>
+<pre># MOVELOOSEPROP — move loose prop
+<a href="#MOUSEPOS">MOUSEPOS</a> 0 MOVELOOSEPROP</pre>
+</div>
+
+<div class="cmd-card" id="NBRLOOSEPROPS">
+<h4>NBRLOOSEPROPS <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Pushes the number of loose props in the room.</p>
+<pre># NBRLOOSEPROPS — count loose props
+NBRLOOSEPROPS <a href="#LOGMSG">LOGMSG</a></pre>
+</div>
+
+<div class="cmd-card" id="LOOSEPROP">
+<h4>LOOSEPROP <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Pushes the prop ID of a loose prop by index.</p>
+<pre># LOOSEPROP — get loose prop id by index
+0 LOOSEPROP propId =
+propId <a href="#DONPROP">DONPROP</a>  ; wear the last dropped prop</pre>
+</div>
+
+<div class="cmd-card" id="LOOSEPROPIDX">
+<h4>LOOSEPROPIDX <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Pushes the index of a loose prop by its prop ID.</p>
+<pre># LOOSEPROPIDX — find loose prop index
+60035 LOOSEPROPIDX index =
+index <a href="#REMOVELOOSEPROP">REMOVELOOSEPROP</a></pre>
+</div>
+
+<div class="cmd-card" id="LOOSEPROPPOS">
+<h4>LOOSEPROPPOS <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Pushes x,y position of a loose prop by index.</p>
+<pre># LOOSEPROPPOS — loose prop position
+0 LOOSEPROPPOS y = x =
+x "," &amp; y &amp; <a href="#LOGMSG">LOGMSG</a></pre>
+</div>
+
+<div class="cmd-card" id="CLEARLOOSEPROPS">
+<h4>CLEARLOOSEPROPS <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Removes all loose props from the room.</p>
+<pre># CLEARLOOSEPROPS — clear all loose props
+CLEARLOOSEPROPS</pre>
+</div>
+
+<!-- HTTP & Network -->
+<h3 class="category-title" id="cmd-http">HTTP &amp; Network</h3>
+
+<div class="cmd-card" id="HTTPGET">
+<h4>HTTPGET <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Downloads a URL via HTTP. Content-Type determines behavior: text/iptscrae is executed, text/html opens in a popup, image/* is saved (or imported as prop from cyborg).</p>
+<dl class="params"><dt>url</dt><dd>The URL to fetch</dd></dl>
+<pre># HTTPGET — download content
+"http://example.com/api/data.json" HTTPGET</pre>
+</div>
+
+<div class="cmd-card" id="HTTPPOST">
+<h4>HTTPPOST <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Uploads data via HTTP POST. String = urlencoded, array/hash/file = multipart.</p>
+<dl class="params"><dt>data</dt><dd>String, array, hash, or filetoken</dd><dt>url</dt><dd>The URL to post to</dd></dl>
+<pre># HTTPPOST — post data
+"name=Jamie&amp;score=100" "http://example.com/submit" HTTPPOST
+
+# HTTPPOST with hash (multipart)
+<a href="#NEWHASH">NEWHASH</a> postdata =
+<a href="#USERNAME">USERNAME</a> postdata "myname" <a href="#PUT">PUT</a>
+postdata "http://example.com/upload" HTTPPOST</pre>
+</div>
+
+<div class="cmd-card" id="HTTPCANCEL">
+<h4>HTTPCANCEL <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Cancels all pending HTTP requests. In cyborg scripts, only cancels cyborg requests. In room scripts, only room requests.</p>
+<pre># HTTPCANCEL — cancel all requests
+ON <a href="#LEAVE">LEAVE</a> { HTTPCANCEL }</pre>
+</div>
+
+<div class="cmd-card" id="ADDHEADER">
+<h4>ADDHEADER <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Adds a custom HTTP header for subsequent HTTPGET/HTTPPOST calls.</p>
+<pre># ADDHEADER — add custom header
+"name" <a href="#USERNAME">USERNAME</a> ADDHEADER</pre>
+</div>
+
+<div class="cmd-card" id="REMOVEHEADER">
+<h4>REMOVEHEADER <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Removes a custom HTTP header.</p>
+<pre># REMOVEHEADER — remove header
+"name" REMOVEHEADER</pre>
+</div>
+
+<div class="cmd-card" id="RESETHEADERS">
+<h4>RESETHEADERS <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Resets HTTP headers to defaults.</p>
+<pre># RESETHEADERS — reset all headers
+RESETHEADERS</pre>
+</div>
+
+<div class="cmd-card" id="SELECTFILE">
+<h4>SELECTFILE <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Opens a file browser to select a file. Returns a FileToken or 0 if cancelled.</p>
+<dl class="params"><dt>mimeType</dt><dd>Allowed file types (e.g. "image/*"), or "" for any</dd></dl>
+<pre># SELECTFILE — pick a file for upload
+"image/*" SELECTFILE file =
+{ file "http://example.com/upload" <a href="#HTTPPOST">HTTPPOST</a> } file <a href="#IF">IF</a></pre>
+</div>
+
+<div class="cmd-card" id="LOADWEBSITE">
+<h4>LOADWEBSITE <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Opens a URL in a popup window.</p>
+<pre># LOADWEBSITE — open webpage in popup
+"http://pchat.org" LOADWEBSITE</pre>
+</div>
+
+<!-- Web Embed -->
+<h3 class="category-title" id="cmd-web">Web Embed</h3>
+
+<div class="cmd-card" id="WEBEMBED">
+<h4>WEBEMBED <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Embeds a web browser into a spot. Pass "" to remove the embed.</p>
+<dl class="params"><dt>url</dt><dd>URL to load, or "" to remove</dd><dt>spotId</dt><dd>Target spot</dd></dl>
+<pre># WEBEMBED — embed a webpage in a spot
+"http://pchat.org" <a href="#ME">ME</a> WEBEMBED
+
+# Remove webembed
+"" <a href="#ME">ME</a> WEBEMBED</pre>
+</div>
+
+<div class="cmd-card" id="WEBLOCATION">
+<h4>WEBLOCATION <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Gets the current URL of a WEBEMBED.</p>
+<pre># WEBLOCATION — get embedded page URL
+<a href="#ME">ME</a> WEBLOCATION <a href="#LOGMSG">LOGMSG</a></pre>
+</div>
+
+<div class="cmd-card" id="WEBTITLE">
+<h4>WEBTITLE <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Gets the current title of a WEBEMBED.</p>
+<pre># WEBTITLE — get embedded page title
+<a href="#ME">ME</a> WEBTITLE <a href="#LOGMSG">LOGMSG</a></pre>
+</div>
+
+<div class="cmd-card" id="WEBSCRIPT">
+<h4>WEBSCRIPT <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Executes JavaScript in a WEBEMBED.</p>
+<pre># WEBSCRIPT — run JS in webembed
+"document.title" <a href="#ME">ME</a> WEBSCRIPT</pre>
+</div>
+
+<!-- Sound -->
+<h3 class="category-title" id="cmd-sound">Sound</h3>
+
+<div class="cmd-card" id="SOUND">
+<h4>SOUND <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Plays a sound file.</p>
+<pre># SOUND — play a sound
+"doorbell.wav" SOUND</pre>
+</div>
+
+<div class="cmd-card" id="SOUNDOPEN">
+<h4>SOUNDOPEN <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Opens a sound file and pushes a sound variable onto the stack.</p>
+<pre># SOUNDOPEN — load sound for control
+"music.mp3" SOUNDOPEN snd =</pre>
+</div>
+
+<div class="cmd-card" id="SOUNDPLAY">
+<h4>SOUNDPLAY <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Plays a sound opened with SOUNDOPEN.</p>
+<pre># SOUNDPLAY — play loaded sound
+snd SOUNDPLAY</pre>
+</div>
+
+<div class="cmd-card" id="SOUNDPAUSE">
+<h4>SOUNDPAUSE <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Pauses a sound opened with SOUNDOPEN.</p>
+<pre># SOUNDPAUSE — pause sound
+snd SOUNDPAUSE</pre>
+</div>
+
+<div class="cmd-card" id="SOUNDSTOP">
+<h4>SOUNDSTOP <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Stops any sound played with the SOUND command.</p>
+<pre># SOUNDSTOP — stop sound
+SOUNDSTOP</pre>
+</div>
+
+<div class="cmd-card" id="SOUNDSEEK">
+<h4>SOUNDSEEK <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Seeks to a position (in milliseconds) in a sound.</p>
+<pre># SOUNDSEEK — seek in sound
+5000 snd SOUNDSEEK  ; skip to 5 seconds</pre>
+</div>
+
+<div class="cmd-card" id="SOUNDPLAYFROM">
+<h4>SOUNDPLAYFROM <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Plays a sound from a specific position in milliseconds.</p>
+<pre># SOUNDPLAYFROM — play from position
+3000 snd SOUNDPLAYFROM  ; start at 3 seconds</pre>
+</div>
+
+<div class="cmd-card" id="SOUNDISPLAYING">
+<h4>SOUNDISPLAYING <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Checks if a SOUNDOPEN sound is currently playing.</p>
+<pre># SOUNDISPLAYING — check playback state
+{ "Playing!" <a href="#SAY">SAY</a> } snd SOUNDISPLAYING <a href="#IF">IF</a></pre>
+</div>
+
+<div class="cmd-card" id="ISSOUNDPLAYING">
+<h4>ISSOUNDPLAYING <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Checks if any SOUND command sound is currently playing.</p>
+<pre># ISSOUNDPLAYING — any sound playing?
+{ "Audio active!" <a href="#LOGMSG">LOGMSG</a> } ISSOUNDPLAYING <a href="#IF">IF</a></pre>
+</div>
+
+<div class="cmd-card" id="SOUNDGETPOSITION">
+<h4>SOUNDGETPOSITION <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Gets current playback position in milliseconds.</p>
+<pre># SOUNDGETPOSITION — track progress
+snd SOUNDGETPOSITION <a href="#LOGMSG">LOGMSG</a></pre>
+</div>
+
+<div class="cmd-card" id="SOUNDLENGTH">
+<h4>SOUNDLENGTH <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Gets total length of a sound in milliseconds.</p>
+<pre># SOUNDLENGTH — sound duration
+snd SOUNDLENGTH " ms" &amp; <a href="#LOGMSG">LOGMSG</a></pre>
+</div>
+
+<div class="cmd-card" id="BEEP">
+<h4>BEEP <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Plays a system beep sound.</p>
+<pre># BEEP — system notification
+BEEP</pre>
+</div>
+
+<div class="cmd-card" id="MIDIPLAY">
+<h4>MIDIPLAY <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Plays a MIDI file.</p>
+<pre># MIDIPLAY — play MIDI
+"song.mid" MIDIPLAY</pre>
+</div>
+
+<div class="cmd-card" id="MIDILOOP">
+<h4>MIDILOOP <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Plays a MIDI file in a loop.</p>
+<pre># MIDILOOP — loop MIDI
+"song.mid" MIDILOOP</pre>
+</div>
+
+<div class="cmd-card" id="MIDISTOP">
+<h4>MIDISTOP <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Stops MIDI playback.</p>
+<pre># MIDISTOP — stop MIDI
+MIDISTOP</pre>
+</div>
+
+<div class="cmd-card" id="TEXTSPEECH">
+<h4>TEXTSPEECH <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Speaks the given text using text-to-speech.</p>
+<pre># TEXTSPEECH — text to speech
+"Hello world!" TEXTSPEECH</pre>
+</div>
+
+<!-- Timers & Alarms -->
+<h3 class="category-title" id="cmd-timer">Timers &amp; Alarms</h3>
+
+<div class="cmd-card" id="SETALARM">
+<h4>SETALARM <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Sets a timer that fires the ON ALARM event after N ticks (60ths of a second).</p>
+<dl class="params"><dt>ticks</dt><dd>Number of ticks (1/60th second each)</dd></dl>
+<pre># SETALARM — set alarm timer
+300 SETALARM  ; fires ON <a href="#ALARM">ALARM</a> in 5 seconds</pre>
+</div>
+
+<div class="cmd-card" id="ALARMEXEC">
+<h4>ALARMEXEC <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Executes an atomlist after a delay (in ticks). Unlike TIMEREXEC, uses a new variable context.</p>
+<dl class="params"><dt>atomlist</dt><dd>Code to execute</dd><dt>ticks</dt><dd>Delay in ticks</dd></dl>
+<pre># ALARMEXEC — delayed execution
+{ "5 seconds passed!" <a href="#SAY">SAY</a> } 300 ALARMEXEC</pre>
+</div>
+
+<div class="cmd-card" id="TIMEREXEC">
+<h4>TIMEREXEC <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Like ALARMEXEC but preserves the calling context's local variables.</p>
+<dl class="params"><dt>atomlist</dt><dd>Code to execute</dd><dt>ticks</dt><dd>Delay in ticks</dd></dl>
+<pre># TIMEREXEC — delayed exec with local vars
+"Saved message" msg =
+{ msg <a href="#SAY">SAY</a> } 300 TIMEREXEC  ; msg is still accessible</pre>
+</div>
+
+<div class="cmd-card" id="DELAY">
+<h4>DELAY <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Pauses script execution for N ticks.</p>
+<pre># DELAY — pause execution
+60 DELAY  ; pause 1 second</pre>
+</div>
+
+<div class="cmd-card" id="TICKS">
+<h4>TICKS <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Pushes the current tick count (1/60th second increments).</p>
+<pre># TICKS — current time in ticks
+TICKS <a href="#LOGMSG">LOGMSG</a></pre>
+</div>
+
+<div class="cmd-card" id="DATETIME">
+<h4>DATETIME <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Pushes date/time values onto the stack.</p>
+<pre># DATETIME — get date and time
+DATETIME</pre>
+</div>
+
+<div class="cmd-card" id="GETTIMEZONE">
+<h4>GETTIMEZONE <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Pushes your time zone string.</p>
+<pre># GETTIMEZONE — get time zone
+GETTIMEZONE <a href="#SAY">SAY</a></pre>
+</div>
+
+<div class="cmd-card" id="STOPALARM">
+<h4>STOPALARM <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Cancels alarms for a specific spot.</p>
+<pre># STOPALARM — cancel spot alarms
+<a href="#ME">ME</a> STOPALARM</pre>
+</div>
+
+<div class="cmd-card" id="STOPALARMS">
+<h4>STOPALARMS <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Cancels all alarms. Scoped: cyborg cancels cyborg alarms, room cancels room alarms.</p>
+<pre># STOPALARMS — cancel all alarms
+STOPALARMS</pre>
+</div>
+
+<!-- UI & Misc -->
+<h3 class="category-title" id="cmd-ui">UI &amp; Misc</h3>
+
+<div class="cmd-card" id="ALERTBOX">
+<h4>ALERTBOX <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Shows a popup alert dialog.</p>
+<pre># ALERTBOX — show alert
+"Hello world!" ALERTBOX</pre>
+</div>
+
+<div class="cmd-card" id="CONFIRMBOX">
+<h4>CONFIRMBOX <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Shows a confirm dialog with OK/Cancel. Pushes result onto stack.</p>
+<pre># CONFIRMBOX — confirm dialog
+{ "OK pressed!" <a href="#SAY">SAY</a> } { "Cancelled!" <a href="#SAY">SAY</a> } "Continue?" CONFIRMBOX <a href="#IFELSE">IFELSE</a></pre>
+</div>
+
+<div class="cmd-card" id="PROMPT">
+<h4>PROMPT <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Shows an input dialog. Pushes the typed response (or "" if cancelled).</p>
+<dl class="params"><dt>question</dt><dd>The prompt text</dd><dt>defaultResponse</dt><dd>Default input value</dd></dl>
+<pre># PROMPT — ask for input
+"What is your name?" "John" PROMPT name =
+{ "Hello " name &amp; <a href="#SAY">SAY</a> } name "" != <a href="#IF">IF</a></pre>
+</div>
+
+<div class="cmd-card" id="SETTOOLTIP">
+<h4>SETTOOLTIP <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Shows a tooltip with a message.</p>
+<pre># SETTOOLTIP — show tooltip
+ON <a href="#ROLLOVER">ROLLOVER</a> { "Click me!" SETTOOLTIP }
+ON <a href="#ROLLOUT">ROLLOUT</a> { <a href="#CLEARTOOLTIP">CLEARTOOLTIP</a> }</pre>
+</div>
+
+<div class="cmd-card" id="CLEARTOOLTIP">
+<h4>CLEARTOOLTIP <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Hides the tooltip shown by SETTOOLTIP.</p>
+<pre># CLEARTOOLTIP — hide tooltip
+CLEARTOOLTIP</pre>
+</div>
+
+<div class="cmd-card" id="SETCURSOR">
+<h4>SETCURSOR <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Sets the cursor to a predefined style (1-15). Other values reset to default.</p>
+<pre># SETCURSOR — change cursor
+3 SETCURSOR</pre>
+</div>
+
+<div class="cmd-card" id="SETCURSORPIC">
+<h4>SETCURSORPIC <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Sets the cursor to a custom image.</p>
+<dl class="params"><dt>x</dt><dd>Hotspot X</dd><dt>y</dt><dd>Hotspot Y</dd><dt>fileName</dt><dd>Image file name</dd></dl>
+<pre># SETCURSORPIC — custom cursor
+0 0 "cursor.png" SETCURSORPIC</pre>
+</div>
+
+<div class="cmd-card" id="ISFUNCTION">
+<h4>ISFUNCTION <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Checks if a string is the name of an existing Iptscrae command.</p>
+<pre># ISFUNCTION — check if command exists
+{ "BEEP exists!" <a href="#SAY">SAY</a> } "BEEP" ISFUNCTION <a href="#IF">IF</a></pre>
+</div>
+
+<div class="cmd-card" id="ISKEYDOWN">
+<h4>ISKEYDOWN <span class="badge badge-ext">extended</span></h4>
+<p class="desc">Checks if a specific key is currently pressed by keycode.</p>
+<pre># ISKEYDOWN — detect key state
+{ "Shift held!" <a href="#LOGMSG">LOGMSG</a> } 16 ISKEYDOWN <a href="#IF">IF</a></pre>
+</div>
+
+<div class="cmd-card" id="IPTVERSION">
+<h4>IPTVERSION <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Pushes the Iptscrae version number (2 for PalaceChat/OpenPalace).</p>
+<pre># IPTVERSION — check iptscrae version
+{ "Extended Iptscrae!" <a href="#SAY">SAY</a> } IPTVERSION 2 == <a href="#IF">IF</a></pre>
+</div>
+
+<div class="cmd-card" id="MACRO">
+<h4>MACRO <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Executes a macro command.</p>
+<pre># MACRO — execute macro
+0 MACRO</pre>
+</div>
+
+<div class="cmd-card" id="TRACE">
+<h4>_TRACE <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Enables/disables execution tracing for debugging.</p>
+<pre># _TRACE — debug trace
+1 _TRACE</pre>
+</div>
+
+<div class="cmd-card" id="TRACESTACK">
+<h4>TRACESTACK <span class="badge badge-classic">classic</span></h4>
+<p class="desc">Dumps the current stack contents for debugging.</p>
+<pre># TRACESTACK — debug stack dump
+TRACESTACK</pre>
+</div>
+
+<!-- Operators -->
+<h3 class="category-title" id="cmd-operators">Operators</h3>
+
+<div class="cmd-card" id="cmd-operators-all">
+<h4>Arithmetic &amp; Assignment Operators <span class="badge badge-op">operator</span></h4>
+<p class="desc">Standard arithmetic, comparison, logical, and assignment operators.</p>
+<pre># Arithmetic
+10 5 +     ; 15 (addition)
+10 5 -     ; 5 (subtraction)
+10 5 *     ; 50 (multiplication)
+10 5 /     ; 2 (division)
+10 3 %     ; 1 (modulo)
+
+# String concatenation
+"Hello " "World" &amp;   ; "Hello World"
+
+# Comparison
+5 3 ==     ; 0 (equal)
+5 3 !=     ; 1 (not equal, also &lt;&gt;)
+5 3 &gt;      ; 1 (greater than)
+5 3 &lt;      ; 0 (less than)
+5 3 &gt;=     ; 1
+5 3 &lt;=     ; 0
+
+# Logical
+1 1 AND    ; 1
+1 0 OR     ; 1
+1 NOT      ; 0 (also !)
+
+# Shortcuts
+i++        ; increment variable
+i--        ; decrement variable
+5 i +=     ; add and assign
+3 i -=     ; subtract and assign
+2 i *=     ; multiply and assign
+2 i /=     ; divide and assign
+3 i %=     ; modulo and assign
+"!" s &amp;=   ; concat and assign</pre>
+</div>
+
+
+</main>
+</div>
+
+<script type="module" src="../dist/iptscrae-reference.js"></script>
+</body>
+</html>

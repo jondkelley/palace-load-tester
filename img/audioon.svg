@@ -1,0 +1,7 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 18 18" fill="#444">
+  <!-- Speaker body -->
+  <path d="M1 7 L4 7 L9 3 L9 15 L4 11 L1 11 Z"/>
+  <!-- Sound waves -->
+  <path d="M12 6 Q14.5 9 12 12" fill="none" stroke="#444" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M14 4 Q17.5 9 14 14" fill="none" stroke="#444" stroke-width="1.5" stroke-linecap="round"/>
+</svg>

@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#444">
+  <!-- Pencil body -->
+  <path d="M14 1 L18.5 5.5 L6 18 L1 19 L2 14 Z"/>
+  <!-- Pencil tip -->
+  <path d="M1 19 L2 14 L6 18 Z" fill="#333"/>
+  <!-- Pencil top band -->
+  <path d="M14 1 L18.5 5.5 L16.5 7.5 L12 3 Z" fill="#555"/>
+</svg>

@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="#444">
+  <!-- Eraser body (parallelogram) -->
+  <path d="M5 3 L18 3 L15 17 L2 17 Z"/>
+  <!-- Edge highlight -->
+  <path d="M2 17 L5 3 L8 3 L5 17 Z" fill="#555"/>
+</svg>
